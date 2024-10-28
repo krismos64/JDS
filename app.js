@@ -129,24 +129,25 @@ const modalManager = new ModalManager();
 // Gestionnaire de dates
 class DateManager {
   constructor() {
-    this.updateNextGameDate();
     this.startOliviaQuotes();
   }
 
-  updateNextGameDate() {
-    const today = new Date();
-    let nextGame = new Date(today);
+  // Nouvelle méthode pour définir la date manuellement
+  setNextGameDate(date) {
+    const nextGameElement = document.getElementById("nextGameDate");
+    if (!nextGameElement) return;
 
-    if (today.getDate() < 15) {
-      nextGame.setDate(15);
-    } else {
-      nextGame.setMonth(nextGame.getMonth() + 1);
-      nextGame.setDate(1);
+    try {
+      const gameDate = new Date(date);
+      const options = { weekday: "long", day: "numeric", month: "long" };
+      nextGameElement.textContent = gameDate.toLocaleDateString(
+        "fr-FR",
+        options
+      );
+    } catch (error) {
+      console.error("Format de date invalide:", error);
+      nextGameElement.textContent = "Date à définir";
     }
-
-    const options = { weekday: "long", day: "numeric", month: "long" };
-    document.getElementById("nextGameDate").textContent =
-      nextGame.toLocaleDateString("fr-FR", options);
   }
 
   startOliviaQuotes() {
@@ -156,7 +157,10 @@ class DateManager {
 
   updateOliviaQuote() {
     const quote = oliviaQuotes[Math.floor(Math.random() * oliviaQuotes.length)];
-    document.getElementById("oliviaComment").textContent = `"${quote}"`;
+    const oliviaElement = document.getElementById("oliviaComment");
+    if (oliviaElement) {
+      oliviaElement.textContent = `"${quote}"`;
+    }
   }
 }
 

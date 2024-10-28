@@ -157,8 +157,22 @@ header {
   width: 100%;
   background: white;
   border-radius: 10px;
-  overflow: hidden;
+  overflow-x: auto;
   margin-top: 1rem;
+}
+
+/* Table responsive */
+@media screen and (max-width: 768px) {
+  .score-table-wrapper {
+    overflow-x: auto;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .score-table {
+    min-width: 600px; /* largeur minimum pour assurer la lisibilité */
+  }
 }
 
 .score-table th,
@@ -166,15 +180,18 @@ header {
   padding: 1rem;
   text-align: center;
   border-bottom: 1px solid #eee;
+  white-space: nowrap; /* empêche le texte de se wrapper */
 }
 
 .score-table th {
   background: var(--dark);
   color: white;
+  position: sticky;
+  top: 0;
 }
 
-.score-table tr:nth-child(even) {
-  background: #f9f9f9;
+.score-table tbody tr:hover {
+  background-color: rgba(78, 205, 196, 0.1);
 }
 
 /* Anecdotes section */
