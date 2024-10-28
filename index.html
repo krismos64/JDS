@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embrouille JDS - Club de Jeux</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  </head>
+  <body>
+    <!-- Modal pour les détails des joueurs -->
+    <div id="playerModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div id="playerDetails"></div>
+      </div>
+    </div>
+
+    <!-- Modal pour les formulaires -->
+    <div id="formModal" class="modal">
+      <div class="form-modal">
+        <span class="close-modal" onclick="closeFormModal()">&times;</span>
+        <div id="formContent"></div>
+      </div>
+    </div>
+
+    <header>
+      <h1 class="title floating">🎲 Embrouille JDS 🎲</h1>
+    </header>
+
+    <!-- Bannière prochaine soirée -->
+    <section class="next-game-banner">
+      <h2>Prochaine Soirée</h2>
+      <div id="nextGameDate" class="countdown">Le mercredi 30 Octobre 2024</div>
+      <div class="olivia-status">
+        👶 Olivia sera présente !
+        <span id="oliviaComment">"C'est à mon tour !"</span>
+      </div>
+    </section>
+
+    <section class="members">
+      <div class="member-card" onclick="showPlayerDetails('coco')">
+        <div class="member-photo">
+          <img src="/img/B6CA6EE4-2593-452B-B77C-6B938639A852.jpg" alt="Coco" />
+        </div>
+        <h2>Coco</h2>
+        <p>Master des jeux de stratégie</p>
+      </div>
+      <div class="member-card" onclick="showPlayerDetails('stacy')">
+        <div class="member-photo">
+          <img
+            src="/img/577D625C-95F0-4619-AE0F-6EE7900B4353.jpg"
+            alt="Stacy"
+          />
+        </div>
+        <h2>Stacy</h2>
+        <p>Reine des jeux de bluff</p>
+      </div>
+      <div class="member-card" onclick="showPlayerDetails('fab')">
+        <div class="member-photo">
+          <img
+            src="/img/F5B12578-B2BD-463D-947D-6F0A5167B8FA.jpg"
+            alt="Fab le kebab"
+          />
+        </div>
+        <h2>Fab le kebab</h2>
+        <p>Champion des jeux d'adresse</p>
+      </div>
+      <div class="member-card" onclick="showPlayerDetails('moutt')">
+        <div class="member-photo">
+          <img src="/img/webResult.jpg" alt="Moutt" />
+        </div>
+        <h2>Moutt</h2>
+        <p>Pro de l'escroquerie</p>
+      </div>
+    </section>
+
+    <section class="games-section">
+      <h2>Nos Jeux Préférés</h2>
+      <div class="game-list">
+        <div class="game-card">
+          <h3>Pioupiou</h3>
+          <p>Meilleur joueur : Coco</p>
+        </div>
+        <div class="game-card">
+          <h3>Memory</h3>
+          <p>Champion en titre: Stacy</p>
+        </div>
+        <div class="game-card">
+          <h3>Cortex</h3>
+          <p>Record à battre: 8 cerveaux de Fabrice</p>
+        </div>
+        <div class="game-card">
+          <h3>Saboteur</h3>
+          <p>Meilleur saboteur: Moutt</p>
+        </div>
+        <div class="game-card">
+          <h3>6 qui prend</h3>
+          <p>Score à battre: Les meufs</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scores-section">
+      <h2>Tableau des Scores</h2>
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Jeu</th>
+            <th>Coco</th>
+            <th>Stacy</th>
+            <th>Fab</th>
+            <th>Moutt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>15/10/2024</td>
+            <td>Pioupiou</td>
+            <td>42</td>
+            <td>38</td>
+            <td>35</td>
+            <td>40</td>
+          </tr>
+          <tr>
+            <td>01/10/2024</td>
+            <td>Saboteur</td>
+            <td>🥈</td>
+            <td>🥉</td>
+            <td>4ème</td>
+            <td>🥇</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="anecdotes-section">
+      <h2>Les Anecdotes de nos Soirées</h2>
+      <div id="anecdotesList">
+        <div class="anecdote-card">
+          <div class="anecdote-date">15 Octobre 2024</div>
+          <p>
+            Coco a passé 15 minutes à expliquer une stratégie complexe au
+            Saboteur... avant de réaliser qu'il était lui-même le saboteur ! 🤦‍♂️
+          </p>
+          <div class="anecdote-photos">
+            <div class="anecdote-photo">
+              <img src="img/IMG_1607.JPG" alt="Moment drôle" />
+              <div class="photo-caption">
+                La tête de Coco quand elle a réalisé 😂
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anecdote-card">
+          <div class="anecdote-date">1 Octobre 2024</div>
+          <p>
+            Olivia a décidé de "réorganiser" les cartes du Memory pendant qu'on
+            avait le dos tourné. Une nouvelle variante est née : le "Memory
+            Surprise" ! 🎲
+          </p>
+          <div class="anecdote-photos">
+            <div class="anecdote-photo">
+              <img
+                src="img/C63C18B6-BF5B-43F5-9378-68921594D3A6.jpg"
+                alt="Olivia joue"
+              />
+              <div class="photo-caption">Notre maître du jeu en action</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contrôles admin -->
+    <div class="admin-controls">
+      <button class="add-button" onclick="showAddGameForm()">
+        Ajouter une partie
+      </button>
+      <button class="add-button" onclick="showAddAnecdoteForm()">
+        Ajouter une anecdote
+      </button>
+      <button class="add-button" onclick="showAddPhotoForm()">
+        Ajouter des photos
+      </button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
