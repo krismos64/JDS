@@ -3,7 +3,7 @@ const playerDetails = {
   coco: {
     name: "Coco",
     description:
-      "Expert en analyse de plateau qui peut passer 20 minutes à réfléchir à son coup... pour finalement jouer exactement ce qu'on lui avait suggéré au début ! 🤔 Détient le record du 'Ah mais si j'avais su...' le plus utilisé en une soirée.",
+      "Experte en analyse de plateau qui peut passer 20 minutes à réfléchir à son coup... pour finalement jouer exactement ce qu'on lui avait suggéré au début ! 🤔 Détient le record du 'Ah mais si j'avais su...' le plus utilisé en une soirée.",
     favoriteGame: "Cortex",
     funFact: "A déjà gagné une partie sans comprendre les règles",
   },
@@ -34,7 +34,7 @@ const playerDetails = {
 
 // Citations d'Olivia
 const oliviaQuotes = [
-  "Papaaaaa ! C'est à mon tour !",
+  "C'est à mon tour !",
   "Je veux la carte avec le papillon !",
   "On peut jouer encore une fois ?",
   "C'est moi qui mélange !",
