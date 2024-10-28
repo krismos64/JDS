@@ -348,6 +348,105 @@ function createAnecdotePhotoElement(photo) {
   `;
 }
 
+// Animation des citations d'Olivia avec fondu
+function updateOliviaQuote() {
+  const quoteElement = document.getElementById("oliviaComment");
+
+  // Fade out
+  quoteElement.style.opacity = "0";
+
+  setTimeout(() => {
+    // Change le texte
+    const quote = oliviaQuotes[Math.floor(Math.random() * oliviaQuotes.length)];
+    quoteElement.textContent = `"${quote}"`;
+
+    // Fade in
+    quoteElement.style.opacity = "1";
+  }, 300);
+}
+
+// Animation au scroll
+function initScrollAnimations() {
+  const elements = document.querySelectorAll(".game-card, .anecdote-card");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+    }
+  );
+
+  elements.forEach((element) => {
+    element.style.opacity = "0";
+    element.style.transform = "translateY(20px)";
+    element.style.transition = "all 0.5s ease";
+    observer.observe(element);
+  });
+}
+
+// Animation des emojis dans les scores
+function animateScoreEmojis() {
+  const emojis = document.querySelectorAll(".score-table td:has(emoji)");
+
+  emojis.forEach((cell) => {
+    cell.addEventListener("mouseover", () => {
+      cell.style.transform = "scale(1.2) rotate(360deg)";
+      setTimeout(() => {
+        cell.style.transform = "scale(1) rotate(0deg)";
+      }, 500);
+    });
+  });
+}
+
+// Animation du dé qui roule dans le titre
+function animateDiceTitle() {
+  const title = document.querySelector(".title");
+  title.addEventListener("click", () => {
+    title.style.animation = "none";
+    requestAnimationFrame(() => {
+      title.style.animation = "rollDice 1s ease-out";
+    });
+  });
+}
+
+// Animation des photos au hover avec effet parallax
+function initPhotoParallax() {
+  const photos = document.querySelectorAll(".anecdote-photo img");
+
+  photos.forEach((photo) => {
+    photo.parentElement.addEventListener("mousemove", (e) => {
+      const rect = photo.parentElement.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      photo.style.transform = `
+              scale(1.1)
+              translateX(${x * 10}px)
+              translateY(${y * 10}px)
+          `;
+    });
+
+    photo.parentElement.addEventListener("mouseleave", () => {
+      photo.style.transform = "scale(1) translateX(0) translateY(0)";
+    });
+  });
+}
+
+// Initialisation
+document.addEventListener("DOMContentLoaded", () => {
+  initScrollAnimations();
+  animateScoreEmojis();
+  animateDiceTitle();
+  initPhotoParallax();
+});
+
 // Initialisation du gestionnaire de photos
 const photoManager = new PhotoManager();
 
