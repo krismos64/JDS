@@ -1,0 +1,157 @@
+/* Composants modaux */
+.modal {
+  display: none; /* sera changé en flex quand la modale est active */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  transform: scale(0.7);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--dark);
+}
+
+.close-modal:hover {
+  color: var(--primary);
+}
+
+/* Cartes membres */
+.members {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  perspective: 1000px;
+}
+
+.member-card::before {
+  display: none;
+}
+
+.member-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: var(--border-radius-full);
+  margin: 0 auto var(--spacing-md);
+  overflow: hidden;
+  border: 3px solid var(--accent);
+}
+
+.member-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Cartes jeux */
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.game-card {
+  background: white;
+  color: var(--dark);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+/* Tableau des scores */
+.score-table-wrapper {
+  overflow-x: auto;
+  background: #ccc;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.score-table th,
+.score-table td {
+  padding: var(--spacing-md);
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.score-table th {
+  background: #333;
+  color: #fff;
+  position: sticky;
+  top: 0;
+}
+/* Anecdotes */
+.anecdote-card {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-md);
+}
+
+.anecdote-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+/* Contrôles admin */
+.admin-controls {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  background: var(--dark);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  z-index: 1000;
+  display: none;
+}
+
+.add-button {
+  background: var(--accent);
+  color: var(--dark);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  margin: var(--spacing-xs);
+  transition: opacity var(--transition-fast);
+}
+
+.add-button:hover {
+  opacity: 0.9;
+}
