@@ -273,6 +273,88 @@ function handlePhotoSubmit(event) {
   modalManager.closeFormModal();
 }
 
+// Gestionnaire de photos
+class PhotoManager {
+  constructor() {
+    this.currentPhotoIndex = 0;
+    this.photos = [];
+    this.modal = document.getElementById("photoModal");
+    this.modalImg = document.getElementById("modalPhoto");
+    this.modalCaption = document.getElementById("modalCaption");
+
+    // Gestion des touches clavier
+    document.addEventListener("keydown", (e) => {
+      if (this.modal.classList.contains("active")) {
+        if (e.key === "Escape") this.closeModal();
+        if (e.key === "ArrowLeft") this.navigate(-1);
+        if (e.key === "ArrowRight") this.navigate(1);
+      }
+    });
+
+    // Initialisation des photos
+    this.initializePhotos();
+  }
+
+  initializePhotos() {
+    // Collecte toutes les photos des anecdotes
+    const photoElements = document.querySelectorAll(".anecdote-photo");
+    photoElements.forEach((photo, index) => {
+      const img = photo.querySelector("img");
+      const caption = photo.querySelector(".photo-caption");
+
+      this.photos.push({
+        src: img.src,
+        caption: caption ? caption.textContent : "",
+      });
+
+      // Ajoute le gestionnaire de clic
+      photo.addEventListener("click", () => this.openModal(index));
+    });
+  }
+
+  openModal(index) {
+    this.currentPhotoIndex = index;
+    this.updateModalContent();
+    this.modal.classList.add("active");
+    document.body.style.overflow = "hidden"; // Empêche le scroll
+  }
+
+  closeModal() {
+    this.modal.classList.remove("active");
+    document.body.style.overflow = ""; // Réactive le scroll
+  }
+
+  navigate(direction) {
+    this.currentPhotoIndex =
+      (this.currentPhotoIndex + direction + this.photos.length) %
+      this.photos.length;
+    this.updateModalContent();
+  }
+
+  updateModalContent() {
+    const photo = this.photos[this.currentPhotoIndex];
+    this.modalImg.src = photo.src;
+    this.modalCaption.textContent = photo.caption;
+  }
+}
+
+// Modification de la structure des anecdotes pour les photos
+function createAnecdotePhotoElement(photo) {
+  return `
+      <div class="anecdote-photo">
+          <img src="${photo.src}" alt="${photo.caption}">
+          <div class="photo-caption">${photo.caption}</div>
+      </div>
+  `;
+}
+
+// Initialisation du gestionnaire de photos
+const photoManager = new PhotoManager();
+
+// Export des fonctions pour l'utilisation globale
+window.closePhotoModal = () => photoManager.closeModal();
+window.navigatePhoto = (direction) => photoManager.navigate(direction);
+
 // Initialisation
 const dateManager = new DateManager();
 
