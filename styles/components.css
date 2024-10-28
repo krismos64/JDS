@@ -90,30 +90,178 @@
 }
 
 /* Tableau des scores */
+/* Styles pour le tableau des scores */
 .score-table-wrapper {
-  overflow-x: auto;
-  background: #ccc;
+  background: #2c3e50; /* Fond foncé pour tout le tableau */
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .score-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.95rem;
+  color: #ecf0f1; /* Couleur claire pour le texte par défaut */
 }
 
-.score-table th,
-.score-table td {
-  padding: var(--spacing-md);
-  text-align: center;
-  border-bottom: 1px solid #e0e0e0;
+/* En-tête du tableau */
+.score-table thead {
+  background: var(--primary); /* Garde la couleur primaire pour l'en-tête */
 }
 
 .score-table th {
-  background: #333;
-  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: none;
   position: sticky;
   top: 0;
+  z-index: 10;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+/* Corps du tableau */
+.score-table tbody tr {
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.score-table tbody tr:nth-child(odd) {
+  background-color: #34495e; /* Légèrement plus clair pour les lignes impaires */
+}
+
+.score-table tbody tr:nth-child(even) {
+  background-color: #2c3e50; /* Couleur de base pour les lignes paires */
+}
+
+.score-table tbody tr:hover {
+  background-color: #3d5a80; /* Bleu plus clair au hover */
+}
+
+/* Cellules du tableau */
+.score-table td {
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  color: #ecf0f1;
+}
+
+/* Colonne date */
+.score-table td:first-child {
+  font-weight: 600;
+  color: #ecf0f1;
+  text-align: left;
+}
+
+/* Colonne jeu */
+.score-table td:nth-child(2) {
+  color: #ff7675; /* Version plus claire de la couleur primaire */
+  font-weight: 500;
+}
+
+/* Styles pour les médailles */
+.score-table .medal-gold,
+.score-table td:contains("🥇") {
+  color: #ffd700; /* Or brillant */
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+.score-table .medal-silver,
+.score-table td:contains("🥈") {
+  color: #e0e0e0; /* Argent brillant */
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(224, 224, 224, 0.3);
+}
+
+.score-table .medal-bronze,
+.score-table td:contains("🥉") {
+  color: #cd7f32; /* Bronze brillant */
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(205, 127, 50, 0.3);
+}
+
+/* Score élevé */
+.score-table .high-score {
+  color: #ff7675; /* Rouge vif */
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(255, 118, 117, 0.3);
+}
+
+/* Version mobile */
+@media (max-width: 768px) {
+  .score-table-wrapper {
+    margin: 1rem -1rem;
+    border-radius: 0;
+  }
+
+  .score-table {
+    font-size: 0.9rem;
+  }
+
+  .score-table th,
+  .score-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  /* Pour permettre le défilement horizontal sur mobile */
+  .score-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Largeur minimale pour éviter l'écrasement */
+  .score-table {
+    min-width: 600px;
+  }
+}
+
+/* Personnalisation de la barre de défilement pour les navigateurs WebKit */
+.score-table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.score-table-wrapper::-webkit-scrollbar-track {
+  background: #2c3e50;
+}
+
+.score-table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+.score-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #ff8787;
+}
+
+/* Support du mode clair (inverse du mode sombre habituel) */
+@media (prefers-color-scheme: light) {
+  .score-table-wrapper {
+    /* Garde le fond foncé même en mode clair */
+    background: #2c3e50;
+  }
+
+  .score-table td {
+    color: #ecf0f1;
+  }
+
+  .score-table tbody tr:nth-child(odd) {
+    background-color: #34495e;
+  }
+
+  .score-table tbody tr:nth-child(even) {
+    background-color: #2c3e50;
+  }
+
+  .score-table tbody tr:hover {
+    background-color: #3d5a80;
+  }
 }
 /* Anecdotes */
 .anecdote-card {

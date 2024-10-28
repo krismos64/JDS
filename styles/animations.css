@@ -161,3 +161,97 @@
     will-change: transform;
   }
 }
+/* Animation d'entrée de la modale */
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Mise à jour des styles de la modale */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.modal.active {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  opacity: 0;
+  transform: scale(0.8) translateY(-20px);
+}
+
+.modal.active .modal-content {
+  animation: modalEnter 0.3s ease forwards;
+}
+
+/* Styles améliorés pour les cartes des membres */
+.animated-card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.animated-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation du contenu de la modale */
+.player-name {
+  animation: slideIn 0.3s ease-out 0.1s both;
+}
+
+.player-description {
+  animation: slideIn 0.3s ease-out 0.2s both;
+}
+
+.player-info {
+  animation: slideIn 0.3s ease-out 0.3s both;
+}
+
+/* Styles responsifs */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .animated-card {
+    transform: none !important; /* Désactiver les transformations sur mobile */
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* Pour les utilisateurs qui préfèrent réduire les animations */
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal-content,
+  .animated-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}
