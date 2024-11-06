@@ -102,4 +102,4 @@ Calendrier interactif des soirées
 Intégration avec un système de notifications
 
 Développeur initial : [Mostefaoui Christophe]
-Testeurs : Coco, Stacy, Fab le kebab, Moutt
+Testeurs : Coco, Stacy, Fab le kebab, Chris
