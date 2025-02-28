@@ -1,16 +1,19 @@
 /* Variables globales */
 :root {
   --primary: #ff6b6b;
+  --primary-rgb: 255, 107, 107;
   --secondary: #4ecdc4;
-  --accent: #ffe66d;
-  --dark: #2c3e50;
-  --light: #f7f9f9;
+  --accent: #4ecdc4;
+  --accent-rgb: 78, 205, 196;
+  --dark: #292f36;
+  --light: #f7f7f7;
   --tertiary: #6c5ce7;
   --quaternary: #00b894;
-  --danger: #e74c3c;
-  --success: #2ecc71;
-  --warning: #f39c12;
+  --danger: #ff5252;
+  --success: #6bd490;
+  --warning: #ffbe0b;
   --info: #3498db;
+  --gray: #ced4da;
 
   /* Espacements */
   --spacing-xs: 0.5rem;
@@ -358,31 +361,67 @@ p {
 /* Audio player */
 .audio-player {
   position: fixed;
-  bottom: var(--spacing-md);
-  left: var(--spacing-md);
-  z-index: 1000;
+  bottom: 20px;
+  left: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .toggle-audio {
-  width: 50px;
-  height: 50px;
-  border-radius: var(--border-radius-full);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: var(--primary);
   color: white;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-md);
-  transition: all var(--transition-fast);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .toggle-audio:hover {
   transform: scale(1.1);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.toggle-audio i {
-  font-size: 1.5rem;
+.toggle-audio.playing {
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+
+.audio-notification {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(0);
+  max-width: 200px;
+}
+
+.audio-notification.hide {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0);
+  }
 }
 
 /* Bouton retour en haut */

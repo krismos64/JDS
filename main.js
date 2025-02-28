@@ -47,17 +47,20 @@ const oliviaQuotes = [
 
 class ScoreTable {
   constructor() {
+    this.scoreTable = document.querySelector(".score-table");
+    this.sortDirection = {};
     this.initializeScoreTable();
+    this.setupSorting();
+    this.setupFilters();
   }
 
   initializeScoreTable() {
-    const scoreTable = document.querySelector(".score-table");
-    if (!scoreTable) return;
+    if (!this.scoreTable) return;
 
     // Trouver toutes les lignes du tableau sauf l'en-tête
-    const rows = Array.from(scoreTable.querySelectorAll("tbody tr"));
+    const rows = Array.from(this.scoreTable.querySelectorAll("tbody tr"));
 
-    rows.forEach((row) => {
+    rows.forEach((row, index) => {
       const cells = Array.from(row.querySelectorAll("td"));
 
       // Ignorer la date et le nom du jeu (les deux premières colonnes)
@@ -81,12 +84,34 @@ class ScoreTable {
 
       if (numericScores.length > 0) {
         const maxScore = Math.max(...numericScores);
+        const minScore = Math.min(...numericScores);
 
         // Mettre en évidence les meilleurs scores
         scoreCells.forEach((cell) => {
           const score = parseFloat(cell.textContent);
           if (score === maxScore) {
             cell.classList.add("high-score");
+
+            // Ajouter une couronne au meilleur score
+            const crown = document.createElement("span");
+            crown.className = "score-crown";
+            crown.innerHTML = "👑";
+            crown.style.fontSize = "0.8rem";
+            crown.style.marginLeft = "5px";
+            crown.style.opacity = "0";
+            crown.style.transition = "all 0.5s ease";
+            cell.appendChild(crown);
+
+            // Animation de la couronne après un délai
+            setTimeout(() => {
+              crown.style.opacity = "1";
+              crown.style.transform = "translateY(0) rotate(0deg)";
+            }, 500 + index * 100);
+          }
+
+          // Ajouter une classe pour le score le plus bas
+          if (score === minScore && numericScores.length > 1) {
+            cell.classList.add("low-score");
           }
         });
       }
@@ -94,11 +119,329 @@ class ScoreTable {
       // Ajouter des classes pour les médailles
       scoreCells.forEach((cell) => {
         const text = cell.textContent.trim();
-        if (text.includes("🥇")) cell.classList.add("medal-gold");
-        if (text.includes("🥈")) cell.classList.add("medal-silver");
-        if (text.includes("🥉")) cell.classList.add("medal-bronze");
+        if (text.includes("🥇")) {
+          cell.classList.add("medal-gold");
+          this.addMedalAnimation(cell, "gold");
+        }
+        if (text.includes("🥈")) {
+          cell.classList.add("medal-silver");
+          this.addMedalAnimation(cell, "silver");
+        }
+        if (text.includes("🥉")) {
+          cell.classList.add("medal-bronze");
+          this.addMedalAnimation(cell, "bronze");
+        }
+      });
+
+      // Ajouter un effet d'apparition progressive
+      row.style.animationDelay = `${0.1 + index * 0.05}s`;
+    });
+
+    // Ajouter un effet de survol pour les lignes
+    rows.forEach((row) => {
+      row.addEventListener("mouseenter", () => {
+        this.highlightRow(row);
+      });
+
+      row.addEventListener("mouseleave", () => {
+        this.resetRowHighlight(row);
       });
     });
+  }
+
+  addMedalAnimation(cell, type) {
+    // Créer un élément pour l'effet de brillance
+    const shine = document.createElement("div");
+    shine.className = `medal-shine medal-${type}-shine`;
+    cell.appendChild(shine);
+
+    // Animation de brillance aléatoire
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        shine.style.opacity = "0.7";
+        setTimeout(() => {
+          shine.style.opacity = "0";
+        }, 300);
+      }
+    }, 2000);
+  }
+
+  highlightRow(row) {
+    // Mettre en évidence la ligne survolée
+    const cells = Array.from(row.querySelectorAll("td"));
+
+    cells.forEach((cell, index) => {
+      // Animation différente pour chaque cellule
+      cell.style.transform = "translateY(-3px)";
+      cell.style.transitionDelay = `${index * 0.03}s`;
+    });
+
+    // Mettre en évidence les colonnes correspondantes dans l'en-tête
+    const headers = Array.from(this.scoreTable.querySelectorAll("th"));
+    headers.forEach((header, index) => {
+      if (index < cells.length) {
+        header.classList.add("column-highlight");
+        header.style.transitionDelay = `${index * 0.03}s`;
+      }
+    });
+  }
+
+  resetRowHighlight(row) {
+    // Réinitialiser les styles de la ligne
+    const cells = Array.from(row.querySelectorAll("td"));
+
+    cells.forEach((cell) => {
+      cell.style.transform = "";
+      cell.style.transitionDelay = "";
+    });
+
+    // Réinitialiser les styles de l'en-tête
+    const headers = Array.from(this.scoreTable.querySelectorAll("th"));
+    headers.forEach((header) => {
+      header.classList.remove("column-highlight");
+      header.style.transitionDelay = "";
+    });
+  }
+
+  setupSorting() {
+    if (!this.scoreTable) return;
+
+    // Ajouter des icônes de tri aux en-têtes
+    const headers = Array.from(this.scoreTable.querySelectorAll("th"));
+
+    headers.forEach((header, index) => {
+      // Initialiser la direction de tri
+      this.sortDirection[index] = "none";
+
+      // Ajouter une icône de tri
+      const sortIcon = document.createElement("span");
+      sortIcon.className = "sort-icon";
+      sortIcon.innerHTML = "⇅";
+      sortIcon.style.marginLeft = "5px";
+      sortIcon.style.fontSize = "0.8rem";
+      sortIcon.style.opacity = "0.5";
+      header.appendChild(sortIcon);
+
+      // Ajouter un événement de clic pour le tri
+      header.addEventListener("click", () => {
+        this.sortTable(index);
+      });
+    });
+  }
+
+  sortTable(columnIndex) {
+    if (!this.scoreTable) return;
+
+    const tbody = this.scoreTable.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+
+    // Mettre à jour la direction de tri
+    if (
+      this.sortDirection[columnIndex] === "none" ||
+      this.sortDirection[columnIndex] === "desc"
+    ) {
+      this.sortDirection[columnIndex] = "asc";
+    } else {
+      this.sortDirection[columnIndex] = "desc";
+    }
+
+    // Réinitialiser les autres directions de tri
+    Object.keys(this.sortDirection).forEach((key) => {
+      if (parseInt(key) !== columnIndex) {
+        this.sortDirection[key] = "none";
+      }
+    });
+
+    // Mettre à jour les icônes de tri
+    const headers = Array.from(this.scoreTable.querySelectorAll("th"));
+    headers.forEach((header, index) => {
+      const sortIcon = header.querySelector(".sort-icon");
+      if (index === columnIndex) {
+        sortIcon.innerHTML =
+          this.sortDirection[columnIndex] === "asc" ? "↑" : "↓";
+        sortIcon.style.opacity = "1";
+      } else {
+        sortIcon.innerHTML = "⇅";
+        sortIcon.style.opacity = "0.5";
+      }
+    });
+
+    // Trier les lignes
+    rows.sort((a, b) => {
+      let aValue = a.querySelectorAll("td")[columnIndex].textContent.trim();
+      let bValue = b.querySelectorAll("td")[columnIndex].textContent.trim();
+
+      // Convertir en nombres si possible
+      if (!isNaN(parseFloat(aValue))) {
+        aValue = parseFloat(aValue);
+        bValue = parseFloat(bValue);
+      }
+
+      // Gérer les médailles pour le tri
+      if (typeof aValue === "string") {
+        if (aValue.includes("🥇")) aValue = "999999";
+        if (aValue.includes("🥈")) aValue = "999998";
+        if (aValue.includes("🥉")) aValue = "999997";
+      }
+
+      if (typeof bValue === "string") {
+        if (bValue.includes("🥇")) bValue = "999999";
+        if (bValue.includes("🥈")) bValue = "999998";
+        if (bValue.includes("🥉")) bValue = "999997";
+      }
+
+      // Comparer les valeurs
+      if (aValue < bValue) {
+        return this.sortDirection[columnIndex] === "asc" ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return this.sortDirection[columnIndex] === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+
+    // Réorganiser les lignes dans le tableau
+    rows.forEach((row) => {
+      tbody.appendChild(row);
+    });
+
+    // Animer les lignes après le tri
+    rows.forEach((row, index) => {
+      row.style.opacity = "0";
+      row.style.transform = "translateY(-10px)";
+
+      setTimeout(() => {
+        row.style.transition = "all 0.3s ease";
+        row.style.opacity = "1";
+        row.style.transform = "translateY(0)";
+      }, 50 * index);
+    });
+  }
+
+  setupFilters() {
+    if (!this.scoreTable) return;
+
+    // Créer un conteneur pour les filtres
+    const filterContainer = document.createElement("div");
+    filterContainer.className = "score-filters";
+    filterContainer.style.margin = "1rem 0";
+    filterContainer.style.display = "flex";
+    filterContainer.style.flexWrap = "wrap";
+    filterContainer.style.gap = "0.5rem";
+
+    // Ajouter un titre pour les filtres
+    const filterTitle = document.createElement("div");
+    filterTitle.textContent = "Filtrer par jeu:";
+    filterTitle.style.marginRight = "1rem";
+    filterTitle.style.fontWeight = "600";
+    filterContainer.appendChild(filterTitle);
+
+    // Collecter tous les noms de jeux uniques
+    const gameNames = new Set();
+    const rows = Array.from(this.scoreTable.querySelectorAll("tbody tr"));
+
+    rows.forEach((row) => {
+      const gameName = row.querySelectorAll("td")[1].textContent.trim();
+      gameNames.add(gameName);
+    });
+
+    // Ajouter un bouton pour "Tous"
+    const allButton = document.createElement("button");
+    allButton.textContent = "Tous";
+    allButton.className = "filter-button active";
+    allButton.style.padding = "0.3rem 0.8rem";
+    allButton.style.borderRadius = "20px";
+    allButton.style.border = "none";
+    allButton.style.background = "var(--primary)";
+    allButton.style.color = "white";
+    allButton.style.cursor = "pointer";
+    allButton.style.transition = "all 0.3s ease";
+
+    allButton.addEventListener("click", () => {
+      // Réinitialiser tous les filtres
+      const filterButtons = filterContainer.querySelectorAll(".filter-button");
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+      allButton.classList.add("active");
+
+      // Afficher toutes les lignes
+      rows.forEach((row) => {
+        row.style.display = "";
+
+        // Animation de réapparition
+        row.style.opacity = "0";
+        row.style.transform = "translateX(-10px)";
+
+        setTimeout(() => {
+          row.style.opacity = "1";
+          row.style.transform = "translateX(0)";
+        }, 50);
+      });
+    });
+
+    filterContainer.appendChild(allButton);
+
+    // Ajouter un bouton pour chaque jeu
+    gameNames.forEach((game) => {
+      const button = document.createElement("button");
+      button.textContent = game;
+      button.className = "filter-button";
+      button.style.padding = "0.3rem 0.8rem";
+      button.style.borderRadius = "20px";
+      button.style.border = "none";
+      button.style.background = "rgba(255, 255, 255, 0.1)";
+      button.style.color = "white";
+      button.style.cursor = "pointer";
+      button.style.transition = "all 0.3s ease";
+
+      button.addEventListener("mouseenter", () => {
+        if (!button.classList.contains("active")) {
+          button.style.background = "rgba(255, 255, 255, 0.2)";
+        }
+      });
+
+      button.addEventListener("mouseleave", () => {
+        if (!button.classList.contains("active")) {
+          button.style.background = "rgba(255, 255, 255, 0.1)";
+        }
+      });
+
+      button.addEventListener("click", () => {
+        // Mettre à jour les boutons actifs
+        const filterButtons =
+          filterContainer.querySelectorAll(".filter-button");
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        button.style.background = "var(--primary)";
+
+        // Filtrer les lignes
+        rows.forEach((row) => {
+          const gameName = row.querySelectorAll("td")[1].textContent.trim();
+
+          if (gameName === game) {
+            row.style.display = "";
+
+            // Animation d'apparition
+            row.style.opacity = "0";
+            row.style.transform = "translateX(-10px)";
+
+            setTimeout(() => {
+              row.style.opacity = "1";
+              row.style.transform = "translateX(0)";
+            }, 50);
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+
+      filterContainer.appendChild(button);
+    });
+
+    // Insérer le conteneur de filtres avant le tableau
+    const tableWrapper = this.scoreTable.closest(".score-table-wrapper");
+    if (tableWrapper) {
+      tableWrapper.parentNode.insertBefore(filterContainer, tableWrapper);
+    }
   }
 }
 
@@ -165,6 +508,7 @@ class AudioPlayer {
   constructor() {
     this.audio = document.getElementById("theme-song");
     this.toggleButton = document.getElementById("toggle-audio");
+    this.notification = document.getElementById("audio-notification");
     this.isPlaying = false;
     this.initializeAudio();
   }
@@ -172,20 +516,117 @@ class AudioPlayer {
   initializeAudio() {
     if (!this.audio || !this.toggleButton) return;
 
-    this.toggleButton.addEventListener("click", () => this.toggleAudio());
+    // Ajouter un événement pour démarrer la musique automatiquement
+    // lorsque l'utilisateur interagit avec la page
+    const startAudioOnInteraction = () => {
+      // Jouer la musique automatiquement
+      this.playAudio();
+
+      // Masquer la notification
+      this.hideNotification();
+
+      // Supprimer les écouteurs d'événements une fois la musique démarrée
+      document.removeEventListener("click", startAudioOnInteraction);
+      document.removeEventListener("touchstart", startAudioOnInteraction);
+      document.removeEventListener("keydown", startAudioOnInteraction);
+      document.removeEventListener("scroll", startAudioOnInteraction);
+    };
+
+    // Ajouter des écouteurs pour diverses interactions utilisateur
+    document.addEventListener("click", startAudioOnInteraction, { once: true });
+    document.addEventListener("touchstart", startAudioOnInteraction, {
+      once: true,
+    });
+    document.addEventListener("keydown", startAudioOnInteraction, {
+      once: true,
+    });
+    document.addEventListener("scroll", startAudioOnInteraction, {
+      once: true,
+    });
+
+    // Ajouter l'événement de clic sur le bouton pour basculer l'audio
+    this.toggleButton.addEventListener("click", (e) => {
+      e.stopPropagation(); // Empêcher la propagation pour éviter de déclencher startAudioOnInteraction
+      this.toggleAudio();
+      this.hideNotification();
+    });
+
+    // Gérer les erreurs de lecture audio
+    this.audio.addEventListener("error", (e) => {
+      console.error("Erreur de lecture audio:", e);
+      this.isPlaying = false;
+      this.updateButtonState();
+    });
+  }
+
+  hideNotification() {
+    if (this.notification) {
+      this.notification.classList.add("hide");
+      // Supprimer complètement après l'animation
+      setTimeout(() => {
+        if (this.notification && this.notification.parentNode) {
+          this.notification.parentNode.removeChild(this.notification);
+        }
+      }, 500);
+    }
+  }
+
+  playAudio() {
+    // Vérifier si l'audio peut être joué
+    const playPromise = this.audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          // Lecture démarrée avec succès
+          this.isPlaying = true;
+          this.updateButtonState();
+          console.log("Musique démarrée automatiquement");
+        })
+        .catch((error) => {
+          // La lecture automatique a été empêchée
+          console.warn(
+            "Lecture audio automatique bloquée par le navigateur:",
+            error
+          );
+          this.isPlaying = false;
+          this.updateButtonState();
+        });
+    }
   }
 
   toggleAudio() {
     if (this.isPlaying) {
       this.audio.pause();
-      this.toggleButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
-      this.toggleButton.classList.remove("playing");
+      this.isPlaying = false;
     } else {
-      this.audio.play();
+      const playPromise = this.audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            this.isPlaying = true;
+          })
+          .catch((error) => {
+            console.warn("Erreur lors de la lecture audio:", error);
+            this.isPlaying = false;
+          });
+      }
+    }
+
+    this.updateButtonState();
+  }
+
+  updateButtonState() {
+    if (this.isPlaying) {
       this.toggleButton.innerHTML = '<i class="fas fa-volume-up"></i>';
       this.toggleButton.classList.add("playing");
+      this.toggleButton.setAttribute("title", "Couper le son");
+    } else {
+      this.toggleButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      this.toggleButton.classList.remove("playing");
+      this.toggleButton.setAttribute("title", "Activer le son");
     }
-    this.isPlaying = !this.isPlaying;
   }
 }
 
