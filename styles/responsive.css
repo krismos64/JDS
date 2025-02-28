@@ -3,6 +3,14 @@
   .container {
     padding: 0 var(--spacing-md);
   }
+
+  .members {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .featured-video {
+    max-width: 700px;
+  }
 }
 
 @media (max-width: 992px) {
@@ -19,6 +27,124 @@
   .members {
     gap: var(--spacing-md);
   }
+
+  .game-list {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .anecdotes-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .header-animation {
+    max-width: 250px;
+  }
+
+  .podium-container {
+    max-width: 250px;
+    height: 180px;
+  }
+
+  .featured-video {
+    max-width: 600px;
+  }
+
+  .video-description {
+    max-width: 600px;
+  }
+
+  /* Styles pour le menu burger */
+  .burger-menu {
+    display: flex;
+    transition: all var(--transition-fast);
+  }
+
+  .burger-menu:hover {
+    transform: scale(1.05);
+  }
+
+  .burger-menu.active {
+    background-color: var(--danger);
+  }
+
+  .main-nav ul {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100vh;
+    background: var(--dark);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 60px;
+    transition: left var(--transition-normal);
+    z-index: 300;
+    box-shadow: var(--shadow-lg);
+    overflow-y: auto; /* Permettre le défilement si le menu est trop long */
+    /* S'assurer qu'il n'y a pas d'effet de flou */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    /* Améliorer la netteté du texte */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .main-nav.active ul {
+    left: 0;
+  }
+
+  .main-nav li {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+
+  .nav-link {
+    color: white;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    transition: all var(--transition-fast);
+    /* Améliorer la netteté du texte */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Éviter les transformations qui peuvent causer du flou */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background-color: rgba(255, 107, 107, 0.3);
+    border-bottom: 1px solid var(--primary);
+    margin-left: 5px;
+    transform: none;
+  }
+
+  .nav-link i {
+    margin-right: var(--spacing-sm);
+    font-size: 1.2rem;
+  }
+
+  .nav-coca-animation {
+    width: 100px;
+    height: 100px;
+    margin: var(--spacing-md) auto 0;
+    display: block;
+  }
+
+  /* Amélioration de l'overlay */
+  .nav-overlay {
+    backdrop-filter: none;
+    pointer-events: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -31,13 +157,19 @@
     font-size: 2rem;
   }
 
+  .tagline {
+    font-size: 1rem;
+  }
+
   .members {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
   }
 
   .game-list {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
   }
 
   .score-table-wrapper {
@@ -49,7 +181,7 @@
     min-width: 600px;
   }
 
-  .anecdote-photos {
+  .anecdotes-container {
     grid-template-columns: 1fr;
   }
 
@@ -62,6 +194,98 @@
     bottom: var(--spacing-md);
     right: var(--spacing-md);
     padding: var(--spacing-sm);
+  }
+
+  .featured-video {
+    max-width: 100%;
+    border-width: 3px;
+  }
+
+  .video-presentation-container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-md);
+  }
+
+  .video-description {
+    max-width: 100%;
+    border-left-width: 3px;
+  }
+
+  /* Suppression des styles de navigation horizontale pour mobile */
+  .main-nav ul {
+    width: 90%;
+  }
+
+  .header-content {
+    padding: var(--spacing-sm) 0;
+  }
+
+  .header-animation {
+    max-width: 200px;
+    margin: var(--spacing-sm) auto;
+  }
+
+  .section-container {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .date-display {
+    font-size: 2.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .date-display::before,
+  .date-display::after {
+    font-size: 1.5rem;
+  }
+
+  .coca-animation-container {
+    max-width: 200px;
+  }
+
+  .coca-quote {
+    font-size: 1rem;
+  }
+
+  .podium-container {
+    max-width: 200px;
+    height: 150px;
+  }
+
+  .audio-player,
+  .back-to-top {
+    bottom: var(--spacing-sm);
+  }
+
+  .audio-player {
+    left: var(--spacing-sm);
+  }
+
+  .back-to-top {
+    right: var(--spacing-sm);
+  }
+
+  .toggle-audio,
+  .back-to-top {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Ajustements du menu burger pour mobile */
+  .burger-menu {
+    top: 10px;
+    right: 10px;
+  }
+
+  .burger-menu-icon {
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -82,6 +306,113 @@
   .add-button {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: 0.9rem;
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+  }
+
+  .header-animation {
+    max-width: 150px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .date-display {
+    font-size: 1.8rem;
+  }
+
+  .date-display::before,
+  .date-display::after {
+    display: none;
+  }
+
+  .olivia-status {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  #oliviaComment {
+    font-size: 0.8rem;
+  }
+
+  .coca-animation-container {
+    max-width: 150px;
+  }
+
+  .coca-quote {
+    font-size: 0.9rem;
+  }
+
+  .podium-container {
+    max-width: 150px;
+    height: 120px;
+  }
+
+  .game-icon {
+    font-size: 1.5rem;
+  }
+
+  .game-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .game-card p {
+    font-size: 0.8rem;
+  }
+
+  .member-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .member-card p {
+    font-size: 0.8rem;
+  }
+
+  .anecdote-card p {
+    font-size: 0.9rem;
+  }
+
+  .photo-caption {
+    font-size: 0.7rem;
+    padding: 5px;
+  }
+
+  .toggle-audio,
+  .back-to-top {
+    width: 35px;
+    height: 35px;
+  }
+
+  .toggle-audio i,
+  .back-to-top i {
+    font-size: 1rem;
+  }
+
+  .admin-controls::before {
+    font-size: 1.2rem;
+  }
+
+  .featured-video {
+    border-width: 2px;
+  }
+
+  .video-description {
+    border-left-width: 2px;
+    padding: var(--spacing-xs);
+  }
+
+  /* Ajustements du menu burger pour petit mobile */
+  .nav-link {
+    font-size: 0.9rem;
+    padding: var(--spacing-sm);
+  }
+
+  .nav-coca-animation {
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -105,15 +436,74 @@
   .modal-content,
   .member-card,
   .game-card,
-  .anecdote-card {
+  .anecdote-card,
+  .section-container,
+  .main-nav {
+    background: #34495e;
+    color: #f7f9f9;
+  }
+
+  .section-container::before {
+    background: var(--gradient-primary);
+  }
+
+  .nav-link {
+    color: #f7f9f9;
+  }
+
+  .member-card h2,
+  .game-card h3,
+  .section-title,
+  .anecdote-date {
+    color: #f7f9f9;
+  }
+
+  .date-display {
+    color: #f7f9f9;
+  }
+
+  .member-card:hover h2 {
+    color: var(--primary);
+  }
+
+  .member-card:hover p {
+    color: #f7f9f9;
+  }
+
+  .video-description {
+    background: #34495e;
+    color: #f7f9f9;
+  }
+
+  /* Ajustements du menu burger en mode sombre */
+  .burger-menu-icon span {
+    background-color: var(--dark);
+  }
+
+  .main-nav ul {
     background: #34495e;
   }
 }
+
 @media (min-width: 1400px) {
   .container {
     max-width: 1320px;
   }
+
+  .header-animation {
+    max-width: 350px;
+  }
+
+  .podium-container {
+    max-width: 350px;
+    height: 250px;
+  }
+
+  .featured-video {
+    max-width: 900px;
+  }
 }
+
 .video-container {
   position: relative;
   width: 100%;

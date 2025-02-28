@@ -10,8 +10,27 @@
     <link rel="stylesheet" href="styles/components.css" />
     <link rel="stylesheet" href="styles/animations.css" />
     <link rel="stylesheet" href="styles/responsive.css" />
+
+    <!-- Lottie Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
   </head>
   <body>
+    <!-- Audio Player (caché) -->
+    <div class="audio-player">
+      <audio id="theme-song" loop>
+        <source src="audio/Embrouille-JDS.mp3" type="audio/mp3" />
+      </audio>
+      <button id="toggle-audio" class="toggle-audio">
+        <i class="fas fa-volume-mute"></i>
+      </button>
+    </div>
+
     <!-- Modal joueur -->
     <div id="playerModal" class="modal">
       <div class="modal-content">
@@ -20,26 +39,110 @@
       </div>
     </div>
 
-    <!-- Header -->
+    <!-- Header avec animation Lottie -->
     <header class="site-header">
-      <h1 class="title floating">🎲 Embrouille JDS 🎲</h1>
+      <div class="header-content">
+        <h1 class="title bouncing">🎲 Embrouille JDS 🎲</h1>
+        <div class="header-animation">
+          <div id="fight-animation" class="lottie-animation"></div>
+        </div>
+        <p class="tagline">Où l'amitié se brise à chaque partie !</p>
+      </div>
     </header>
 
-    <main>
-      <!-- Bannière prochaine soirée -->
-      <div class="next-game-banner">
-        <h2>Prochaine Soirée</h2>
-
-        <div id="nextGameDate">Janvier 2025</div>
-
-        <div class="olivia-status">
-          👶 Olivia sera présente !
-          <span id="oliviaComment" class="quote"> "C'est à mon tour !" </span>
-        </div>
+    <!-- Bouton menu burger -->
+    <div class="burger-menu" id="burger-menu">
+      <div class="burger-menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
+    </div>
+
+    <!-- Overlay pour le menu mobile -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li>
+          <a href="#video-presentation" class="nav-link"
+            ><i class="fas fa-video"></i> Vidéo</a
+          >
+        </li>
+        <li>
+          <a href="#prochaine-soiree" class="nav-link"
+            ><i class="fas fa-calendar-alt"></i> Prochaine Soirée</a
+          >
+        </li>
+        <li>
+          <a href="#membres" class="nav-link"
+            ><i class="fas fa-users"></i> Membres</a
+          >
+        </li>
+        <li>
+          <a href="#jeux" class="nav-link"><i class="fas fa-dice"></i> Jeux</a>
+        </li>
+        <li>
+          <a href="#scores" class="nav-link"
+            ><i class="fas fa-trophy"></i> Scores</a
+          >
+        </li>
+        <li>
+          <a href="#anecdotes" class="nav-link"
+            ><i class="fas fa-comment-dots"></i> Anecdotes</a
+          >
+        </li>
+        <!-- Animation Coca en bas des liens -->
+        <div id="nav-coca-animation" class="nav-coca-animation"></div>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Section vidéo de présentation -->
+      <section id="video-presentation" class="section-container">
+        <h2 class="section-title">Découvrez nos soirées JDS !</h2>
+        <div class="video-presentation-container">
+          <div class="video-container featured-video">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/5rMIRtOtW50"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="video-description">
+            Plongez dans l'ambiance de nos soirées jeux de société ! Entre
+            rires, stratégies et petites embrouilles, découvrez comment nous
+            passons nos soirées entre amis autour de nos jeux préférés.
+          </p>
+        </div>
+      </section>
+
+      <!-- Bannière prochaine soirée -->
+      <section id="prochaine-soiree" class="section-container">
+        <div class="next-game-banner">
+          <h2 class="section-title">Prochaine Soirée</h2>
+
+          <div id="nextGameDate" class="date-display">Janvier 2025</div>
+
+          <div class="olivia-status">
+            👶 Olivia sera présente !
+            <span id="oliviaComment" class="quote"> "C'est à mon tour !" </span>
+          </div>
+
+          <div class="coca-animation-container">
+            <div id="coca-animation" class="lottie-animation"></div>
+            <p class="coca-quote">"On boit du coca comme des oufs !"</p>
+          </div>
+        </div>
+      </section>
 
       <!-- Section membres -->
-      <section class="members-section">
+      <section id="membres" class="section-container">
+        <h2 class="section-title">Notre Dream Team</h2>
         <div class="members">
           <article class="member-card" onclick="showPlayerDetails('coco')">
             <div class="member-photo">
@@ -47,6 +150,7 @@
                 src="img/B6CA6EE4-2593-452B-B77C-6B938639A852.jpg"
                 alt="Photo de Coco"
               />
+              <div class="member-badge">Règles Master</div>
             </div>
             <h2>Coco</h2>
             <p>Nous lit les règles du jeu !</p>
@@ -58,6 +162,7 @@
                 src="img/577D625C-95F0-4619-AE0F-6EE7900B4353.jpg"
                 alt="Photo de Stacy"
               />
+              <div class="member-badge">Bluff Queen</div>
             </div>
             <h2>Stacy</h2>
             <p>Reine des jeux de bluff</p>
@@ -69,6 +174,7 @@
                 src="img/F5B12578-B2BD-463D-947D-6F0A5167B8FA.jpg"
                 alt="Photo de Fab"
               />
+              <div class="member-badge">Adresse Pro</div>
             </div>
             <h2>Fab le kebab</h2>
             <p>Champion des jeux d'adresse</p>
@@ -77,6 +183,7 @@
           <article class="member-card" onclick="showPlayerDetails('moutt')">
             <div class="member-photo">
               <img src="img/webResult.jpg" alt="Photo de Moutt" />
+              <div class="member-badge">Saboteur</div>
             </div>
             <h2>Chris</h2>
             <p>Pro de l'escroquerie</p>
@@ -85,69 +192,85 @@
       </section>
 
       <!-- Section jeux -->
-      <section class="games-section">
-        <h2>Nos Jeux Préférés</h2>
+      <section id="jeux" class="section-container">
+        <h2 class="section-title">Nos Jeux Préférés</h2>
         <div class="game-list">
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-feather"></i></div>
             <h3>Pioupiou</h3>
             <p>Meilleur joueur : Coco(rico)</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-brain"></i></div>
             <h3>Memory</h3>
             <p>Champion en titre: Stacy</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-puzzle-piece"></i></div>
             <h3>Cortex</h3>
             <p>Record à battre: 8 cerveaux de Fabrice</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-user-secret"></i></div>
             <h3>Saboteur</h3>
             <p>Meilleur saboteur: Chris</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-paw"></i></div>
             <h3>Lama</h3>
             <p>Champion en titre: Stacy, score 0</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-fist-raised"></i></div>
             <h3>KO</h3>
             <p>Champion en titre: Fabrice</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-star"></i></div>
             <h3>Skyjo</h3>
             <p>Chanceuse de cartes : Coco</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-book"></i></div>
             <h3>Once upon a draft</h3>
             <p>Champion en titre: Fabrice</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-sort-numeric-up"></i></div>
             <h3>6 qui prend</h3>
             <p>Score à battre: Fabrice 27</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-envelope-open"></i></div>
             <h3>Love Letter</h3>
             <p>Score à battre: Fabrice 2 pions</p>
           </article>
 
           <article class="game-card">
+            <div class="game-icon"><i class="fas fa-cookie"></i></div>
             <h3>Chips</h3>
             <p>Score à battre: Fabrice et Chris 5 pions</p>
           </article>
         </div>
       </section>
 
-      <!-- Section scores -->
-      <section class="scores-section">
-        <h2>Tableau des Scores</h2>
+      <!-- Section scores avec animation podium -->
+      <section id="scores" class="section-container">
+        <h2 class="section-title">Tableau des Scores</h2>
+
+        <div class="podium-container">
+          <div id="podium-animation" class="lottie-animation"></div>
+        </div>
+
         <div class="score-table-wrapper">
           <table class="score-table">
             <thead>
@@ -249,11 +372,14 @@
       </section>
 
       <!-- Section anecdotes -->
-      <section class="anecdotes-section">
-        <h2>Les Anecdotes de nos Soirées</h2>
-        <div id="anecdotesList">
+      <section id="anecdotes" class="section-container">
+        <h2 class="section-title">Les Anecdotes de nos Soirées</h2>
+        <div id="anecdotesList" class="anecdotes-container">
           <article class="anecdote-card">
-            <time class="anecdote-date">19 janvier 2025</time>
+            <div class="anecdote-header">
+              <time class="anecdote-date">19 janvier 2025</time>
+              <div class="anecdote-badge">Nouvelle</div>
+            </div>
             <p>Soirée JDS Olivia se gère toute seule ! 😂 !</p>
             <div class="anecdote-photos">
               <figure class="anecdote-photo">
@@ -267,7 +393,10 @@
           </article>
 
           <article class="anecdote-card">
-            <time class="anecdote-date">05 janvier 2025</time>
+            <div class="anecdote-header">
+              <time class="anecdote-date">05 janvier 2025</time>
+              <div class="anecdote-badge">Épiphanie</div>
+            </div>
             <p>
               Soirée JDS pour l'épiphanie, avec une galette des rois sans fêve
               😂 !! Première soirée de l'année 2025 Bonne année !!
@@ -283,7 +412,10 @@
           </article>
 
           <article class="anecdote-card">
-            <time class="anecdote-date">30 Octobre 2024</time>
+            <div class="anecdote-header">
+              <time class="anecdote-date">30 Octobre 2024</time>
+              <div class="anecdote-badge">Vidéo</div>
+            </div>
             <p>
               Chris a eu un nouveau jeu pour son anniv surprise ! et un gateau
               basque ! vidéo souvenir !
@@ -307,7 +439,10 @@
             </div>
           </article>
           <article class="anecdote-card">
-            <time class="anecdote-date">15 Octobre 2024</time>
+            <div class="anecdote-header">
+              <time class="anecdote-date">15 Octobre 2024</time>
+              <div class="anecdote-badge">Drôle</div>
+            </div>
             <p>
               Coco a passé 15 minutes à expliquer une stratégie complexe au
               Saboteur... avant de réaliser qu'elle était elle-même le saboteur
@@ -324,7 +459,10 @@
           </article>
 
           <article class="anecdote-card">
-            <time class="anecdote-date">1 Octobre 2024</time>
+            <div class="anecdote-header">
+              <time class="anecdote-date">1 Octobre 2024</time>
+              <div class="anecdote-badge">Olivia</div>
+            </div>
             <p>
               Olivia a décidé de "réorganiser" les cartes du Memory pendant
               qu'on avait le dos tourné. Une nouvelle variante est née : le
@@ -344,18 +482,10 @@
       </section>
     </main>
 
-    <!-- Contrôles admin -->
-    <div class="admin-controls">
-      <button class="add-button" onclick="showAddGameForm()">
-        Ajouter une partie
-      </button>
-      <button class="add-button" onclick="showAddAnecdoteForm()">
-        Ajouter une anecdote
-      </button>
-      <button class="add-button" onclick="showAddPhotoForm()">
-        Ajouter des photos
-      </button>
-    </div>
+    <!-- Bouton retour en haut -->
+    <button id="back-to-top" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

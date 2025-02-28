@@ -41,9 +41,90 @@
   }
 }
 
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+  }
+}
+
 /* Classes d'animation */
 .floating {
   animation: float 3s ease-in-out infinite;
+}
+
+.bouncing {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.pulsing {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.shaking {
+  animation: shake 0.8s ease-in-out;
+}
+
+.rotating {
+  animation: rotate 10s linear infinite;
+}
+
+.glowing {
+  animation: glowPulse 2s ease-in-out infinite;
 }
 
 .title {
@@ -114,9 +195,65 @@
 }
 
 /* Animations des jeux */
-.game-card:hover {
-  transform: rotate(5deg) scale(1.05);
-  box-shadow: var(--shadow-lg);
+.game-card {
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.game-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.game-card:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.game-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.game-card:nth-child(4) {
+  animation-delay: 0.25s;
+}
+.game-card:nth-child(5) {
+  animation-delay: 0.3s;
+}
+.game-card:nth-child(6) {
+  animation-delay: 0.35s;
+}
+.game-card:nth-child(7) {
+  animation-delay: 0.4s;
+}
+.game-card:nth-child(8) {
+  animation-delay: 0.45s;
+}
+.game-card:nth-child(9) {
+  animation-delay: 0.5s;
+}
+.game-card:nth-child(10) {
+  animation-delay: 0.55s;
+}
+.game-card:nth-child(11) {
+  animation-delay: 0.6s;
+}
+
+/* Animations des anecdotes */
+.anecdote-card {
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.anecdote-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.anecdote-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.anecdote-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.anecdote-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.anecdote-card:nth-child(5) {
+  animation-delay: 0.5s;
 }
 
 /* Animations du tableau */
@@ -130,7 +267,6 @@
 }
 
 /* Animations des photos */
-/* Animations des photos d'anecdotes */
 @media (min-width: 1200px) {
   .anecdote-photo {
     max-width: 300px;
@@ -155,12 +291,14 @@
 .modal.active .modal-content {
   animation: slideIn 0.3s ease forwards;
 }
+
 /* Pour les animations lourdes */
 @media (prefers-reduced-motion: no-preference) {
   .heavy-animation {
     will-change: transform;
   }
 }
+
 /* Animation d'entrée de la modale */
 @keyframes modalEnter {
   from {
@@ -232,6 +370,61 @@
   animation: slideIn 0.3s ease-out 0.3s both;
 }
 
+/* Animation des sections au scroll */
+.section-container {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation des icônes */
+.game-icon i {
+  transition: all 0.3s ease;
+}
+
+.game-card:hover .game-icon i {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Animation du bouton audio */
+.toggle-audio.playing i {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* Animation des badges */
+.anecdote-badge,
+.member-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.anecdote-badge::after,
+.member-badge::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) rotate(30deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(30deg);
+  }
+}
+
 /* Styles responsifs */
 @media (max-width: 768px) {
   .modal-content {
@@ -250,8 +443,25 @@
 @media (prefers-reduced-motion: reduce) {
   .modal,
   .modal-content,
-  .animated-card {
+  .animated-card,
+  .floating,
+  .bouncing,
+  .pulsing,
+  .shaking,
+  .rotating,
+  .glowing,
+  .member-card,
+  .game-card,
+  .anecdote-card,
+  .toggle-audio.playing i,
+  .anecdote-badge::after,
+  .member-badge::after {
     animation: none !important;
     transition: none !important;
+  }
+
+  .section-container {
+    opacity: 1;
+    transform: none;
   }
 }
