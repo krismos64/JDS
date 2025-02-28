@@ -1,105 +1,93 @@
-Embrouille JDS - Site Web du Club de Jeux de Société 🎲
-Description
-Site web vitrine pour un club de 4 joueurs de jeux de société qui se réunissent régulièrement pour des soirées jeux. Le site est conçu pour être responsive, interactif et amusant, reflétant l'esprit convivial du groupe.
-Fonctionnalités 🎮
-Affichage Principal
+# 🎲 Embrouille JDS - Site Web du Club de Jeux de Société
 
-Bannière animée avec le titre du club
-Date de la prochaine soirée jeux
-Citations aléatoires d'Olivia (la maîtresse du jeu de 2 ans)
-Profils des joueurs avec photos et descriptions humoristiques
+## 📋 Description
 
-Section Joueurs
+Site web interactif et ludique pour un club de 4 joueurs de jeux de société qui se réunissent régulièrement pour des soirées jeux. Le site est conçu avec une approche "mobile-first", intégrant des animations Lottie et des fonctionnalités audio pour une expérience utilisateur immersive et divertissante.
 
-Coco: Experte en analyse de plateau
-Stacy: Reine du bluff
-Fab le kebab: Maître des alliances (et des trahisons)
-Moutt: Le stratège silencieux
+## ✨ Fonctionnalités
 
-Section Jeux
+### 🎮 Interface Utilisateur
 
-Liste des jeux préférés
-Records et statistiques par jeu
-Derniers scores
-Anecdotes des parties
+- **Design moderne et ludique** avec une palette de couleurs vibrante
+- **Navigation responsive** avec menu burger pour les appareils mobiles
+- **Animations Lottie** intégrées à différentes sections du site
+- **Lecture audio automatique** après la première interaction utilisateur
+- **Effets de survol** sur les cartes et éléments interactifs
 
-Fonctionnalités Admin
+### 📱 Sections Principales
 
-Gestion des dates de soirées
-Ajout de nouveaux scores
-Publication d'anecdotes
-Upload de photos
-Gestion du contenu du site
+- **En-tête animé** avec l'animation "fight.json"
+- **Vidéo de présentation** des soirées jeux
+- **Prochaine soirée** avec l'animation "coca.json"
+- **Profils des joueurs** avec photos et descriptions humoristiques
+- **Liste des jeux** avec icônes et informations sur les champions en titre
+- **Tableau des scores** interactif avec tri et filtrage
+- **Anecdotes** des soirées passées avec photos
 
-Technologies Utilisées 💻
+### 🎵 Fonctionnalités Audio
 
-HTML5
-CSS3 (avec variables CSS pour le thème)
-JavaScript (ES6)
-GSAP pour les animations
-Design Responsive
+- **Lecture automatique** de la musique après interaction utilisateur
+- **Bouton de contrôle audio** avec animation lors de la lecture
+- **Notification** informant l'utilisateur du démarrage automatique
 
-Structure des Fichiers 📁
-Copyembrouille-jds/
-├── index.html # Structure principale du site
-├── styles.css # Styles et mise en page
-├── app.js # Logique JavaScript
-├── img/ # Dossier des images
-│ ├── profiles/ # Photos des joueurs
-│ └── events/ # Photos des soirées
-└── README.md # Documentation
-Installation 🚀
+### 📊 Tableau des Scores
 
-Clonez le repository
+- **Tri des colonnes** pour analyser les performances
+- **Filtrage par jeu** pour afficher les scores spécifiques
+- **Mise en évidence** des meilleurs scores avec animations
+- **Médailles** pour les podiums (🥇, 🥈, 🥉)
 
-bashCopygit clone https://github.com/votre-username/embrouille-jds.git
+### 🧩 Autres Fonctionnalités
 
-Ouvrez le dossier
+- **Citations aléatoires d'Olivia** (la maîtresse du jeu de 2 ans)
+- **Modales détaillées** pour chaque joueur
+- **Animations au défilement** pour une expérience dynamique
+- **Bouton retour en haut** pour une navigation facilitée
 
-bashCopycd embrouille-jds
+## 🛠️ Technologies Utilisées
 
-Lancez un serveur local (par exemple avec Python)
+- **HTML5** pour la structure
+- **CSS3** avec variables pour le thème et organisation modulaire
+- **JavaScript (ES6+)** pour l'interactivité
+- **Lottie** pour les animations vectorielles
+- **Font Awesome** pour les icônes
+- **GSAP** pour les animations avancées
+- **Responsive Design** adapté à tous les appareils
 
-bashCopypython -m http.server 8000
+## 📁 Structure des Fichiers
 
-Ouvrez votre navigateur et accédez à
+```
+embrouille-jds/
+├── index.html              # Structure principale du site
+├── main.js                 # Logique JavaScript et classes
+├── styles/                 # Styles CSS modulaires
+│   ├── main.css            # Styles de base et variables
+│   ├── components.css      # Styles des composants
+│   ├── animations.css      # Animations CSS
+│   └── responsive.css      # Styles responsifs
+├── animations/             # Animations Lottie
+│   ├── fight.json          # Animation de combat (header)
+│   ├── coca.json           # Animation de coca (prochaine soirée)
+│   └── podium.json         # Animation de podium (scores)
+├── audio/                  # Fichiers audio
+│   └── Embrouille-JDS.mp3  # Musique thème du site
+├── img/                    # Images et photos
+└── README.md               # Documentation
 
-Copyhttp://localhost:8000
-Mode Admin 👑
-Pour accéder au mode administrateur :
+## 🔮 Fonctionnalités à Venir
 
-Connectez-vous (fonctionnalité à implémenter)
-Accédez aux fonctionnalités supplémentaires :
+- **Galerie photo** plus élaborée des soirées
+- **Calendrier interactif** des prochaines soirées
+- **Mini-jeux** intégrés au site
+- **Section de vote** pour les prochains jeux
+- **Statistiques avancées** par joueur et par jeu
+- **Mode sombre** complet
 
-Gestion des dates
-Ajout de scores
-Publication d'anecdotes
-Upload de photos
+## 👥 Équipe
 
-Personnalisation 🎨
-Couleurs
-Les couleurs du site sont définies dans les variables CSS :
-cssCopy:root {
---primary: #ff6b6b; // Rouge-rose
---secondary: #4ecdc4; // Turquoise
---accent: #ffe66d; // Jaune
---dark: #2c3e50; // Bleu foncé
---light: #f7f9f9; // Blanc cassé
-}
-Ajout de Contenu
+- **Développeur** : Mostefaoui Christophe
+- **Joueurs** : Coco, Stacy, Fab le kebab, Chris
 
-Les photos des joueurs doivent être au format jpg/png et de préférence carrées
-Les anecdotes peuvent inclure des emojis
-Les scores peuvent inclure des emojis pour les podiums (🥇, 🥈, 🥉)
 
-Fonctionnalités à Venir 🚧
-
-Système d'authentification pour le mode admin
-Base de données pour stocker les scores et anecdotes
-Statistiques avancées par joueur
-Système de commentaires sur les parties
-Calendrier interactif des soirées
-Intégration avec un système de notifications
-
-Développeur initial : [Mostefaoui Christophe]
-Testeurs : Coco, Stacy, Fab le kebab, Chris
+_"Où l'amitié se brise à chaque partie !" - Embrouille JDS_
+```
