@@ -926,3 +926,50 @@ th:hover .sort-icon {
     margin-bottom: 0.5rem;
   }
 }
+
+/* Styles pour la photo de groupe */
+.team-photo-container {
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-photo-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.team-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.team-photo-container:hover .team-photo {
+  filter: brightness(1.1);
+}
+
+.team-photo-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: var(--spacing-sm);
+  font-size: 1.1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.team-photo-container:hover .team-photo-caption {
+  transform: translateY(0);
+}

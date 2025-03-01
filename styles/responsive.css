@@ -145,6 +145,17 @@
     backdrop-filter: none;
     pointer-events: none;
   }
+
+  .team-photo-container {
+    max-width: 90%;
+  }
+
+  .team-photo-caption {
+    font-size: 1rem;
+    padding: 0.5rem;
+    transform: translateY(0);
+    opacity: 0.9;
+  }
 }
 
 @media (max-width: 768px) {
@@ -287,6 +298,10 @@
     width: 30px;
     height: 30px;
   }
+
+  .team-photo-container {
+    margin-bottom: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -413,6 +428,12 @@
   .nav-coca-animation {
     width: 80px;
     height: 80px;
+  }
+
+  .team-photo-caption {
+    position: relative;
+    background: var(--primary);
+    transform: none;
   }
 }
 
