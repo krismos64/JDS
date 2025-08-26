@@ -1,0 +1,47 @@
+{
+  "name": "Embrouille JDS - Soirées Jeux de Société",
+  "short_name": "Embrouille JDS",
+  "description": "Où l'amitié se brise à chaque partie ! Rejoignez nos soirées jeux de société mémorables.",
+  "theme_color": "#ff6b6b",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon/dice.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/dice.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["games", "entertainment", "social"],
+  "screenshots": [
+    {
+      "src": "/og-image.jpg",
+      "type": "image/jpeg",
+      "sizes": "1200x630"
+    }
+  ]
+}
