@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { Member } from '@/lib/types';
-import { cn } from '@/lib/utils';
 
 interface MemberCardProps {
   member: Member;
@@ -37,8 +36,8 @@ export default function MemberCard({ member }: MemberCardProps) {
       </article>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={() => setShowModal(false)}>
-          <div className="bg-white rounded-2xl max-w-lg w-full p-8 transform animate-in fade-in zoom-in duration-200" onClick={e => e.stopPropagation()}>
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal-content relative" onClick={e => e.stopPropagation()}>
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 text-3xl text-gray-500 hover:text-gray-700"

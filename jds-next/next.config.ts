@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   
+  // Configuration des chemins
+  outputFileTracingRoot: process.cwd(),
+  
   // Configuration ESLint
   eslint: {
     ignoreDuringBuilds: true,
