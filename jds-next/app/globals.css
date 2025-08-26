@@ -1,16 +1,24 @@
 @import "tailwindcss";
 
-/* Variables CSS principales */
+/* Variables CSS futuristes gaming */
 :root {
-  /* Couleurs principales */
-  --primary: #ff6b6b;
-  --secondary: #4ecdc4;
-  --tertiary: #45b7d1;
-  --dark: #2c3e50;
-  --light: #ecf0f1;
-  --warning: #f39c12;
-  --success: #27ae60;
-  --danger: #e74c3c;
+  /* Couleurs gaming futuristes */
+  --neon-cyan: #00f5ff;
+  --neon-magenta: #ff00ff;
+  --neon-yellow: #ffff00;
+  --neon-green: #39ff14;
+  --electric-blue: #0066ff;
+  --cyber-purple: #8a2be2;
+  
+  /* Couleurs principales redesignées */
+  --primary: #ff0080;
+  --secondary: #00f5ff;
+  --tertiary: #39ff14;
+  --accent: #ffff00;
+  --dark: #0a0a0a;
+  --light: #ffffff;
+  --surface: #1a1a1a;
+  --glass: rgba(255, 255, 255, 0.1);
   
   /* Espacements */
   --spacing-xs: 0.5rem;
@@ -26,22 +34,27 @@
   --border-radius-xl: 1rem;
   --border-radius-full: 9999px;
   
-  /* Ombres */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  --shadow-neon: 0 0 20px rgba(255, 107, 107, 0.5);
+  /* Ombres futuristes */
+  --shadow-neon: 0 0 20px var(--primary);
+  --shadow-cyan: 0 0 30px var(--neon-cyan);
+  --shadow-magenta: 0 0 30px var(--neon-magenta);
+  --shadow-green: 0 0 30px var(--neon-green);
+  --shadow-inset: inset 0 0 20px rgba(0, 245, 255, 0.2);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 20px 60px rgba(255, 0, 128, 0.4);
   
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
   --transition-normal: 300ms ease-in-out;
   --transition-slow: 500ms ease-in-out;
   
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-  --gradient-secondary: linear-gradient(135deg, #4ecdc4, #45b7d1);
-  --gradient-dark: linear-gradient(135deg, #2c3e50, #34495e);
+  /* Gradients futuristes gaming */
+  --gradient-cyber: linear-gradient(135deg, var(--primary), var(--secondary));
+  --gradient-neon: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  --gradient-electric: linear-gradient(135deg, var(--electric-blue), var(--cyber-purple));
+  --gradient-gaming: linear-gradient(45deg, var(--neon-green), var(--accent));
+  --gradient-dark: linear-gradient(135deg, var(--dark), var(--surface));
+  --gradient-glass: linear-gradient(135deg, var(--glass), rgba(255, 255, 255, 0.05));
 }
 
 /* Styles de base */
@@ -54,9 +67,14 @@ body {
   padding: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  color: var(--dark);
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(57, 255, 20, 0.05) 0%, transparent 50%),
+    var(--gradient-dark);
+  color: var(--light);
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* Smooth scrolling */
@@ -83,118 +101,232 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--dark);
 }
 
-/* Animations personnalisées */
-@keyframes bounce-slow {
+/* Animations gaming futuristes */
+@keyframes neonPulse {
   0%, 100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary), 0 0 60px var(--primary);
   }
   50% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
   }
 }
 
-@keyframes pulse-slow {
+@keyframes cyberGlow {
   0%, 100% {
-    opacity: 1;
+    box-shadow: 0 0 30px var(--secondary);
+    border-color: var(--secondary);
   }
   50% {
-    opacity: 0.7;
+    box-shadow: 0 0 60px var(--secondary);
+    border-color: var(--neon-cyan);
   }
 }
 
-@keyframes wiggle {
-  0%, 100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(255, 107, 107, 0.8);
-  }
-}
-
-@keyframes fadeIn {
-  from {
+@keyframes matrixRain {
+  0% {
+    transform: translateY(-100%);
     opacity: 0;
-    transform: translateY(20px);
   }
-  to {
+  10% {
     opacity: 1;
-    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
   }
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
+@keyframes hologram {
+  0%, 100% {
     opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    opacity: 0.8;
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    opacity: 1;
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    opacity: 0.9;
+    filter: hue-rotate(270deg);
+  }
+}
+
+@keyframes slideUpStagger {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) rotateX(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+@keyframes electricBorder {
+  0%, 100% {
+    border-image: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta)) 1;
+  }
+  50% {
+    border-image: linear-gradient(45deg, var(--neon-magenta), var(--neon-green)) 1;
+  }
+}
+
+@keyframes dataStream {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes glitch {
+  0%, 90%, 100% {
     transform: translateX(0);
   }
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
+  10% {
+    transform: translateX(-2px);
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+  20% {
+    transform: translateX(2px);
+  }
+  30% {
+    transform: translateX(-1px);
+  }
+  40% {
+    transform: translateX(1px);
   }
 }
 
-/* Classes utilitaires */
-.animate-bounce-slow {
-  animation: bounce-slow 2s infinite;
+/* Classes utilitaires gaming */
+.animate-neon-pulse {
+  animation: neonPulse 2s ease-in-out infinite;
 }
 
-.animate-pulse-slow {
-  animation: pulse-slow 3s infinite;
+.animate-cyber-glow {
+  animation: cyberGlow 3s ease-in-out infinite;
 }
 
-.animate-wiggle {
-  animation: wiggle 0.5s ease-in-out infinite;
+.animate-hologram {
+  animation: hologram 4s ease-in-out infinite;
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out infinite;
 }
 
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
+.animate-slide-up {
+  animation: slideUpStagger 0.8s ease-out forwards;
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out;
+.animate-data-stream {
+  animation: dataStream 2s linear infinite;
 }
 
-.animate-slideInRight {
-  animation: slideInRight 0.6s ease-out;
+/* Composants gaming */
+.glass-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: var(--shadow-glass);
 }
 
-.animate-zoomIn {
-  animation: zoomIn 0.3s ease-out;
+.neon-border {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--surface), var(--surface)) padding-box,
+              var(--gradient-cyber) border-box;
+  border-radius: 16px;
+}
+
+.gaming-card {
+  background: linear-gradient(145deg, var(--surface), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(0, 245, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.gaming-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.gaming-card:hover::before {
+  left: 100%;
+}
+
+.hologram-text {
+  background: var(--gradient-cyber);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(255, 0, 128, 0.5));
+}
+
+.electric-border {
+  position: relative;
+}
+
+.electric-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  padding: 2px;
+  background: var(--gradient-cyber);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: electricBorder 2s ease-in-out infinite;
+}
+
+/* Styles pour le scrollbar futuriste */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-cyber);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0 0 20px var(--primary);
 }
 
 /* Styles pour les scrollbars */
