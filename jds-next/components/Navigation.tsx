@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, Video, Calendar, Users, Dice6, Trophy, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const navItems = [
   { href: '#video-presentation', label: 'Vidéo', icon: Video },
@@ -16,6 +19,13 @@ const navItems = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [cocaAnimation, setCocaAnimation] = useState(null);
+
+  useEffect(() => {
+    fetch('/animations/coca.json')
+      .then(res => res.json())
+      .then(data => setCocaAnimation(data));
+  }, []);
 
   return (
     <>
@@ -52,6 +62,13 @@ export default function Navigation() {
               </li>
             );
           })}
+          
+          {/* Animation Coca en bas de la navigation */}
+          {cocaAnimation && (
+            <div className="mt-6 w-16 h-16 mx-auto md:hidden">
+              <Lottie animationData={cocaAnimation} loop={true} />
+            </div>
+          )}
         </ul>
       </nav>
     </>

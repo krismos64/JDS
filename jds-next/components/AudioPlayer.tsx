@@ -54,8 +54,8 @@ export default function AudioPlayer() {
       </button>
       
       {!hasInteracted && (
-        <div className="absolute top-full mt-2 left-0 bg-dark text-white text-sm px-3 py-2 rounded-lg shadow-lg whitespace-nowrap">
-          La musique démarrera après votre première interaction
+        <div className="absolute top-full mt-2 left-0 bg-dark text-white text-sm px-3 py-2 rounded-lg shadow-lg whitespace-nowrap animate-pulse">
+          <span>La musique démarrera après votre première interaction</span>
         </div>
       )}
     </div>

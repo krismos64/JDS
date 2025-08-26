@@ -7,10 +7,10 @@ export const members: Member[] = [
     role: 'Règles Master',
     badge: 'Règles Master',
     photo: '/img/B6CA6EE4-2593-452B-B77C-6B938639A852.jpg',
-    description: 'Nous lit les règles du jeu !',
+    description: 'Elle adore lire les règles que personne ne comprend, c\'est une experte en analyse de plateau qui peut passer 20 minutes à réfléchir à son coup... pour finalement jouer exactement ce qu\'on lui avait suggéré au début ! 🤔 Détient le record du "Ah mais si j\'avais su..." le plus utilisé en une soirée.',
     stats: {
-      favoriteGame: 'Pioupiou',
-      specialMove: 'Lecture des règles en 2x vitesse'
+      favoriteGame: 'Cortex',
+      specialMove: 'A déjà gagné une partie sans comprendre les règles'
     }
   },
   {
@@ -19,10 +19,10 @@ export const members: Member[] = [
     role: 'Reine des jeux de bluff',
     badge: 'Bluff Queen',
     photo: '/img/577D625C-95F0-4619-AE0F-6EE7900B4353.jpg',
-    description: 'Reine des jeux de bluff',
+    description: 'Reine incontestée du bluff, capable de faire croire qu\'elle a une mauvaise main même quand elle gagne ! 🃏 Son rire contagieux peut déconcentrer les adversaires - technique secrète ?',
     stats: {
-      favoriteGame: 'Lama',
-      specialMove: 'Poker face légendaire'
+      favoriteGame: 'Memory',
+      specialMove: 'Se souvient de toutes les cartes sauf quand c\'est son tour'
     }
   },
   {
@@ -31,10 +31,10 @@ export const members: Member[] = [
     role: 'Champion des jeux d\'adresse',
     badge: 'Adresse Pro',
     photo: '/img/F5B12578-B2BD-463D-947D-6F0A5167B8FA.jpg',
-    description: 'Champion des jeux d\'adresse',
+    description: 'Le joueur qui arrive toujours avec des snacks et pizzas pour amadouer les autres. 🌯 Maître dans l\'art de négocier des alliances... qu\'il trahit systématiquement !',
     stats: {
-      favoriteGame: 'Cortex',
-      specialMove: 'Réflexes surhumains'
+      favoriteGame: '6 qui prend',
+      specialMove: 'N\'a jamais joué un seul tour sans dire "Ah mais c\'est pas ce que je voulais faire ça !"'
     }
   },
   {
@@ -44,10 +44,10 @@ export const members: Member[] = [
     role: 'Pro de l\'escroquerie',
     badge: 'Saboteur',
     photo: '/img/webResult.jpg',
-    description: 'Pro de l\'escroquerie',
+    description: 'Le stratège silencieux qui ne dit rien pendant toute la partie... pour finalement révéler qu\'il était le saboteur depuis le début ! 🕵️ Expert en analyse de ses adversaires, mais ne gagne jamais',
     stats: {
       favoriteGame: 'Saboteur',
-      specialMove: 'Triche artistique'
+      specialMove: 'Capable de mélanger les cartes pendant 10 minutes pour "être sûr que c\'est bien mélangé"'
     }
   }
 ];
@@ -176,4 +176,16 @@ export const anecdotes: Anecdote[] = [
       caption: 'Nos réactions'
     }]
   }
+];
+
+export const oliviaQuotes = [
+  "C'est à mon tour !",
+  "Je veux la carte avec le papillon !",
+  "On peut jouer encore une fois ?",
+  "C'est moi qui mélange !",
+  "Je veux être la première !",
+  "Pourquoi tu as gagné ?",
+  "Encore une partie !",
+  "C'est quoi cette carte ?",
+  "Je peux t'aider ?",
 ];

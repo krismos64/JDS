@@ -6,6 +6,9 @@ import ScoreTable from '@/components/ScoreTable';
 import AnecdoteCard from '@/components/AnecdoteCard';
 import ClientWrapper from '@/components/ClientWrapper';
 import BackToTop from '@/components/BackToTop';
+import CocaAnimation from '@/components/CocaAnimation';
+import PodiumAnimation from '@/components/PodiumAnimation';
+import OliviaQuote from '@/components/OliviaQuote';
 import { members, games, scores, anecdotes } from '@/lib/data';
 import Image from 'next/image';
 
@@ -72,11 +75,8 @@ export default function Home() {
           <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-2xl shadow-2xl p-12 text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Prochaine Soirée</h2>
             <div className="text-6xl font-bold mb-6 animate-pulse">Février 2025</div>
-            <div className="text-2xl">
-              👶 Olivia sera présente !
-              <span className="block mt-2 italic">"C'est à mon tour !"</span>
-            </div>
-            <p className="text-xl mt-8 animate-wiggle">"On boit du coca comme des oufs !"</p>
+            <OliviaQuote />
+            <CocaAnimation />
           </div>
         </section>
 
@@ -126,7 +126,7 @@ export default function Home() {
         <section id="scores" className="scroll-mt-20">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-dark mb-4">Tableau des Scores</h2>
-            <div className="text-6xl my-8">🏆</div>
+            <PodiumAnimation />
           </div>
           
           <ScoreTable scores={scores} />
