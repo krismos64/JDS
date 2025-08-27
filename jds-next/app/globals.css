@@ -612,6 +612,89 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Styles spécifiques pour le menu mobile */
+.menu-card-gradient {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Effet de swipe pour mobile */
+@media (max-width: 768px) {
+  .swipe-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    animation: swipe-hint 2s ease-in-out infinite;
+  }
+  
+  @keyframes swipe-hint {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+  }
+}
+
+/* Touch feedback pour mobile */
+@media (hover: none) and (pointer: coarse) {
+  .touch-feedback {
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .touch-feedback::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  
+  .touch-feedback:active::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Safe area pour iPhone X+ */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Optimisation des performances pour mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  input, textarea {
+    -webkit-user-select: auto;
+    user-select: auto;
+  }
+  
+  /* Désactiver les animations complexes sur mobile */
+  .particle,
+  .animate-data-stream,
+  .matrix-text {
+    display: none !important;
+  }
+}
+
 /* Styles pour les boutons */
 .btn {
   display: inline-flex;
