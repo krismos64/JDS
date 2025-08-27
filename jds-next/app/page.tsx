@@ -1,17 +1,40 @@
+'use client';
+
+import { useState } from 'react';
 import FuturisticHeader from '@/components/FuturisticHeader';
 import GamingNav from '@/components/GamingNav';
 import ClientWrapper from '@/components/ClientWrapper';
 import BackToTop from '@/components/BackToTop';
 import ParticleBackground from '@/components/ParticleBackground';
+import AudioPlayerAdvanced from '@/components/AudioPlayerAdvanced';
+import PlayerModal from '@/components/PlayerModal';
+import TeamPhoto from '@/components/TeamPhoto';
+import CocaAnimation from '@/components/CocaAnimation';
+import PodiumAnimation from '@/components/PodiumAnimation';
 import { members, games, scores, anecdotes } from '@/lib/data';
+import { Member } from '@/lib/types';
 
 export default function Home() {
+  const [selectedPlayer, setSelectedPlayer] = useState<Member | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePlayerClick = (member: Member) => {
+    setSelectedPlayer(member);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen text-light relative">
       <ParticleBackground />
       <ClientWrapper />
+      <AudioPlayerAdvanced />
       <FuturisticHeader />
       <GamingNav />
+      <PlayerModal 
+        player={selectedPlayer} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+      />
       
       <main className="relative">
         {/* Section 1: Team Overview */}
@@ -29,19 +52,27 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
               {members.map((member, index) => (
                 <div key={member.id} 
-                     className="gaming-card p-6 text-center animate-slide-up"
+                     onClick={() => handlePlayerClick(member)}
+                     className="gaming-card p-6 text-center animate-slide-up cursor-pointer hover:scale-105 hover:border-primary transition-all duration-300 hover-lift"
                      style={{animationDelay: `${index * 200}ms`}}>
                   <div className="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden animate-cyber-glow">
                     <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 hologram-text">{member.name}</h3>
                   <div className="text-sm text-secondary mb-3 font-mono">{member.badge}</div>
                   <p className="text-xs text-light/60 line-clamp-3">{member.description.substring(0, 100)}...</p>
+                  <button className="mt-4 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold rounded-full hover:shadow-lg hover:shadow-primary/50 transition-all duration-300">
+                    Voir profil →
+                  </button>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
+        {/* Section Photo de groupe */}
+        <TeamPhoto />
 
         {/* Section 2: Next Game */}
         <section id="next-game" className="min-h-screen flex items-center py-20">
@@ -77,6 +108,8 @@ export default function Home() {
               <div className="text-2xl mb-8">
                 👶 <span className="hologram-text animate-hologram">OLIVIA SERA PRÉSENTE!</span>
               </div>
+              
+              <CocaAnimation />
             </div>
           </div>
         </section>
@@ -94,9 +127,9 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {games.map((game, index) => (
                 <div key={game.id} 
-                     className="gaming-card p-6 text-center hover:scale-105 transition-all animate-slide-up"
+                     className="gaming-card p-6 text-center hover:scale-105 transition-all animate-slide-up hover-glow"
                      style={{animationDelay: `${index * 100}ms`}}>
-                  <div className="text-5xl mb-4 animate-neon-pulse">{game.icon}</div>
+                  <div className="text-5xl mb-4 animate-float">{game.icon}</div>
                   <h3 className="font-bold text-lg mb-2 hologram-text">{game.name}</h3>
                   {game.champion && (
                     <div className="text-xs text-secondary font-mono">CHAMPION: {game.champion}</div>
@@ -117,7 +150,7 @@ export default function Home() {
               <h2 className="text-6xl md:text-8xl font-black mb-6">
                 <span className="hologram-text animate-hologram">LEADERBOARD</span>
               </h2>
-              <div className="text-6xl animate-neon-pulse mb-4">🏆</div>
+              <PodiumAnimation />
             </div>
             
             <div className="gaming-card p-8 overflow-x-auto">
@@ -133,16 +166,34 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {scores.slice(0, 8).map((score, index) => (
-                    <tr key={index} className="border-b border-light/10 hover:bg-light/5">
-                      <td className="p-4 font-mono text-sm">{score.date}</td>
-                      <td className="p-4 font-bold">{score.game}</td>
-                      <td className="p-4 text-center font-mono">{score.scores.coco}</td>
-                      <td className="p-4 text-center font-mono">{score.scores.stacy}</td>
-                      <td className="p-4 text-center font-mono">{score.scores.fab}</td>
-                      <td className="p-4 text-center font-mono">{score.scores.chris}</td>
-                    </tr>
-                  ))}
+                  {scores.slice(0, 10).map((score, index) => {
+                    const scoreValues = Object.values(score.scores).map(s => parseFloat(s.toString()) || 0);
+                    const bestScore = Math.min(...scoreValues);
+                    const worstScore = Math.max(...scoreValues);
+                    
+                    return (
+                      <tr key={index} className="border-b border-light/10 hover:bg-light/5 transition-colors">
+                        <td className="p-4 font-mono text-sm">{score.date}</td>
+                        <td className="p-4 font-bold">{score.game}</td>
+                        <td className={`p-4 text-center font-mono ${parseFloat(score.scores.coco.toString()) === bestScore ? 'text-green-400 font-bold animate-pulse-glow' : parseFloat(score.scores.coco.toString()) === worstScore ? 'text-red-400' : ''}`}>
+                          {score.scores.coco}
+                          {parseFloat(score.scores.coco.toString()) === bestScore && ' 👑'}
+                        </td>
+                        <td className={`p-4 text-center font-mono ${parseFloat(score.scores.stacy.toString()) === bestScore ? 'text-green-400 font-bold animate-pulse-glow' : parseFloat(score.scores.stacy.toString()) === worstScore ? 'text-red-400' : ''}`}>
+                          {score.scores.stacy}
+                          {parseFloat(score.scores.stacy.toString()) === bestScore && ' 👑'}
+                        </td>
+                        <td className={`p-4 text-center font-mono ${parseFloat(score.scores.fab.toString()) === bestScore ? 'text-green-400 font-bold animate-pulse-glow' : parseFloat(score.scores.fab.toString()) === worstScore ? 'text-red-400' : ''}`}>
+                          {score.scores.fab}
+                          {parseFloat(score.scores.fab.toString()) === bestScore && ' 👑'}
+                        </td>
+                        <td className={`p-4 text-center font-mono ${parseFloat(score.scores.chris.toString()) === bestScore ? 'text-green-400 font-bold animate-pulse-glow' : parseFloat(score.scores.chris.toString()) === worstScore ? 'text-red-400' : ''}`}>
+                          {score.scores.chris}
+                          {parseFloat(score.scores.chris.toString()) === bestScore && ' 👑'}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -162,18 +213,24 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {anecdotes.slice(0, 4).map((anecdote, index) => (
                 <div key={anecdote.id} 
-                     className="gaming-card p-8 animate-slide-up"
+                     className="gaming-card p-8 animate-slide-up hover-lift"
                      style={{animationDelay: `${index * 200}ms`}}>
                   <div className="flex justify-between items-center mb-4">
                     <div className="text-sm font-mono text-light/60">{anecdote.date}</div>
-                    <div className="px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full">
+                    <div className="px-3 py-1 bg-gradient-to-r from-primary/20 to-secondary/20 text-white text-xs font-bold rounded-full border border-primary/30">
                       {anecdote.badge}
                     </div>
                   </div>
-                  <p className="text-light/80 mb-4">{anecdote.content.substring(0, 150)}...</p>
+                  <p className="text-light/80 mb-4 leading-relaxed">{anecdote.content}</p>
                   {anecdote.photos && anecdote.photos[0] && (
-                    <div className="relative h-48 rounded-lg overflow-hidden">
-                      <img src={anecdote.photos[0].url} alt="story" className="w-full h-full object-cover" />
+                    <div className="relative h-48 rounded-lg overflow-hidden group">
+                      <img src={anecdote.photos[0].url} alt="story" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      {anecdote.photos[0].caption && (
+                        <div className="absolute bottom-2 left-2 right-2 text-white text-xs bg-black/70 backdrop-blur-sm rounded p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                          {anecdote.photos[0].caption}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -200,8 +257,13 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <div className="font-mono text-secondary text-sm">TEAM INTRO</div>
-                  <div className="text-light/80">Générique manga de l'équipe</div>
+                  <div className="font-mono text-secondary text-sm mb-2">TEAM INTRO</div>
+                  <div className="text-light/80 text-lg font-bold">🎬 Générique manga de l'équipe</div>
+                  <div className="flex justify-center gap-2 mt-3">
+                    <span className="px-2 py-1 bg-primary/20 text-primary text-xs rounded-full">🎲 Epic</span>
+                    <span className="px-2 py-1 bg-secondary/20 text-secondary text-xs rounded-full">⚔️ Action</span>
+                    <span className="px-2 py-1 bg-tertiary/20 text-tertiary text-xs rounded-full">🏆 Gaming</span>
+                  </div>
                 </div>
               </div>
               
@@ -215,8 +277,13 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <div className="font-mono text-primary text-sm">GAMEPLAY</div>
-                  <div className="text-light/80">Soirée gaming intense</div>
+                  <div className="font-mono text-primary text-sm mb-2">GAMEPLAY</div>
+                  <div className="text-light/80 text-lg font-bold">🎮 Soirée gaming intense</div>
+                  <div className="flex justify-center gap-2 mt-3">
+                    <span className="px-2 py-1 bg-accent/20 text-accent text-xs rounded-full">🍕 Pizza</span>
+                    <span className="px-2 py-1 bg-neon-green/20 text-neon-green text-xs rounded-full">😂 Fou rires</span>
+                    <span className="px-2 py-1 bg-neon-magenta/20 text-neon-magenta text-xs rounded-full">🎉 Fun</span>
+                  </div>
                 </div>
               </div>
             </div>
