@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getMembers, getGames, getScores, getAnecdotes } from '@/lib/dataLoader';
+import { getMembers, getGames, getScores, getAnecdotes, getOliviaQuotes } from '@/lib/dataLoader';
 
 export async function GET() {
   try {
@@ -7,6 +7,7 @@ export async function GET() {
     const games = getGames();
     const scores = getScores();
     const anecdotes = getAnecdotes();
+    const oliviaQuotes = getOliviaQuotes();
 
     // Calculer le joueur avec le plus de victoires
     const winCounts: Record<string, number> = {};
@@ -31,6 +32,7 @@ export async function GET() {
       totalGames: games.length,
       totalScores: scores.length,
       totalAnecdotes: anecdotes.length,
+      totalOliviaQuotes: oliviaQuotes.length,
       lastGameDate: scores[scores.length - 1]?.date || '',
       topPlayer: members.find(m => m.id === topPlayer[0])?.name || '',
     };

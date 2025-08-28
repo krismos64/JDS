@@ -5,6 +5,11 @@ import { verifyToken } from './lib/auth';
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Exclure les routes d'auth publiques
+  if (pathname.startsWith('/api/auth/')) {
+    return NextResponse.next();
+  }
+
   // Routes protégées
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
     const token = request.cookies.get('auth-token');
@@ -37,5 +42,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
+  matcher: ['/admin/:path*', '/api/admin/:path*', '/api/auth/:path*'],
 };

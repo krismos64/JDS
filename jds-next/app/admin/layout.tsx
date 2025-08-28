@@ -40,6 +40,7 @@ export default function AdminLayout({
     { href: '/admin/games', label: 'Jeux', icon: Dice1 },
     { href: '/admin/scores', label: 'Scores', icon: Trophy },
     { href: '/admin/anecdotes', label: 'Anecdotes', icon: BookOpen },
+    { href: '/admin/olivia', label: 'Citations Olivia', icon: BarChart },
   ];
 
   return (

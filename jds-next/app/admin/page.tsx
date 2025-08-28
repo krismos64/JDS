@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Users, Trophy, Dice1, BookOpen, TrendingUp, Calendar } from 'lucide-react';
+import { Users, Trophy, Dice1, BookOpen, TrendingUp, Calendar, BarChart } from 'lucide-react';
 import Link from 'next/link';
 
 interface DashboardStats {
@@ -9,6 +9,7 @@ interface DashboardStats {
   totalGames: number;
   totalScores: number;
   totalAnecdotes: number;
+  totalOliviaQuotes: number;
   lastGameDate: string;
   topPlayer: string;
 }
@@ -19,6 +20,7 @@ export default function AdminDashboard() {
     totalGames: 0,
     totalScores: 0,
     totalAnecdotes: 0,
+    totalOliviaQuotes: 0,
     lastGameDate: '',
     topPlayer: '',
   });
@@ -68,6 +70,13 @@ export default function AdminDashboard() {
       icon: BookOpen,
       color: 'from-orange-500 to-red-500',
       link: '/admin/anecdotes',
+    },
+    {
+      title: 'Citations Olivia',
+      value: stats.totalOliviaQuotes,
+      icon: BarChart,
+      color: 'from-pink-500 to-rose-500',
+      link: '/admin/olivia',
     },
   ];
 
@@ -125,6 +134,13 @@ export default function AdminDashboard() {
           >
             <Dice1 className="h-6 w-6 text-green-300 mr-3" />
             <span className="text-white">Ajouter un jeu</span>
+          </Link>
+          <Link
+            href="/admin/olivia"
+            className="flex items-center p-4 bg-pink-600/20 hover:bg-pink-600/30 rounded-lg transition-colors"
+          >
+            <BarChart className="h-6 w-6 text-pink-300 mr-3" />
+            <span className="text-white">Citations d'Olivia</span>
           </Link>
         </div>
       </div>

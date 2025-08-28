@@ -6,7 +6,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { username, password } = body;
 
+    console.log('Login attempt:', { username, password: password ? '***' : 'missing' });
+
     if (!username || !password) {
+      console.log('Missing credentials');
       return NextResponse.json(
         { error: 'Nom d\'utilisateur et mot de passe requis' },
         { status: 400 }
@@ -14,6 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     const isValid = await verifyCredentials(username, password);
+    console.log('Credentials validation result:', isValid);
 
     if (!isValid) {
       return NextResponse.json(
@@ -29,6 +33,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.error('Login error:', error);
     return NextResponse.json(
       { error: 'Erreur lors de la connexion' },
       { status: 500 }

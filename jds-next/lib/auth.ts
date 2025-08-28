@@ -6,20 +6,31 @@ const secret = new TextEncoder().encode(
   process.env.JWT_SECRET || 'jds-admin-secret-key-change-in-production'
 );
 
-// Identifiants admin (à stocker dans .env en production)
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || bcrypt.hashSync('jds2025', 10);
-
 export interface UserToken {
   username: string;
   isAdmin: boolean;
 }
 
 export async function verifyCredentials(username: string, password: string): Promise<boolean> {
+  // Identifiants admin - utilisons le hash qui fonctionne
+  const ADMIN_USERNAME = 'admin';
+  const ADMIN_PASSWORD_HASH = '$2b$10$Fx83HkNqPIQUYG1hCTmai.s1arml35ds4GDztLUmFyBq4zjFqcOFC'; // jds2025
+  
+  console.log('Tentative de connexion:', { username, providedUsername: ADMIN_USERNAME });
+  console.log('Variables env:', { 
+    envUsername: process.env.ADMIN_USERNAME,
+    envHash: process.env.ADMIN_PASSWORD_HASH 
+  });
+  
   if (username !== ADMIN_USERNAME) {
+    console.log('Username invalide');
     return false;
   }
-  return bcrypt.compareSync(password, ADMIN_PASSWORD_HASH);
+  
+  const isValid = bcrypt.compareSync(password, ADMIN_PASSWORD_HASH);
+  console.log('Vérification mot de passe:', isValid);
+  
+  return isValid;
 }
 
 export async function createToken(user: UserToken): Promise<string> {
