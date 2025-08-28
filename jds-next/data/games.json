@@ -1,0 +1,16 @@
+{
+  "games": [
+    { "id": "pioupiou", "name": "Pioupiou", "icon": "🪶", "champion": "Coco(rico)" },
+    { "id": "memory", "name": "Memory", "icon": "🧠", "champion": "Stacy" },
+    { "id": "cortex", "name": "Cortex", "icon": "🧩", "record": "8 cerveaux de Fabrice" },
+    { "id": "saboteur", "name": "Saboteur", "icon": "🕵️", "champion": "Chris" },
+    { "id": "lama", "name": "Lama", "icon": "🦙", "champion": "Stacy", "record": "score 0" },
+    { "id": "ko", "name": "KO", "icon": "👊", "champion": "Fabrice" },
+    { "id": "skyjo", "name": "Skyjo", "icon": "⭐", "champion": "Coco" },
+    { "id": "once-upon", "name": "Once upon a draft", "icon": "📖", "champion": "Fabrice" },
+    { "id": "6-qui-prend", "name": "6 qui prend", "icon": "🔢", "record": "Fabrice 27" },
+    { "id": "love-letter", "name": "Love Letter", "icon": "💌", "record": "Fabrice 2 pions" },
+    { "id": "chips", "name": "Chips", "icon": "🍪", "record": "Fabrice et Chris 5 pions" },
+    { "id": "5-alive", "name": "5 alive", "icon": "✋", "record": "tout le monde a gagné une fois" }
+  ]
+}
