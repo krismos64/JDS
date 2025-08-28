@@ -1,10 +1,6 @@
-// Ce fichier garde les exportations pour compatibilité
-// Les données sont maintenant lues depuis les fichiers JSON
-
+// Données statiques pour le côté client
 import { Member, Game, Score, Anecdote } from './types';
-import { getMembers, getGames, getScores, getAnecdotes, getOliviaQuotes } from './dataLoader';
 
-// Pour le côté client, on peut garder les données par défaut
 export const members: Member[] = [
   {
     id: 'coco',
@@ -194,44 +190,3 @@ export const oliviaQuotes = [
   "C'est quoi cette carte ?",
   "Je peux t'aider ?",
 ];
-
-// Fonctions pour récupérer les données dynamiques
-export async function getServerMembers(): Promise<Member[]> {
-  try {
-    return getMembers();
-  } catch {
-    return members; // fallback vers les données par défaut
-  }
-}
-
-export async function getServerGames(): Promise<Game[]> {
-  try {
-    return getGames();
-  } catch {
-    return games;
-  }
-}
-
-export async function getServerScores(): Promise<Score[]> {
-  try {
-    return getScores();
-  } catch {
-    return scores;
-  }
-}
-
-export async function getServerAnecdotes(): Promise<Anecdote[]> {
-  try {
-    return getAnecdotes();
-  } catch {
-    return anecdotes;
-  }
-}
-
-export async function getServerOliviaQuotes(): Promise<string[]> {
-  try {
-    return getOliviaQuotes();
-  } catch {
-    return oliviaQuotes;
-  }
-}

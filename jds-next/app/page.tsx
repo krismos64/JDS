@@ -13,7 +13,7 @@ import PlayerModal from '@/components/PlayerModal';
 import TeamPhoto from '@/components/TeamPhoto';
 import CocaAnimation from '@/components/CocaAnimation';
 import PodiumAnimation from '@/components/PodiumAnimation';
-import { members, games, scores, anecdotes } from '@/lib/data';
+import { members, games, scores, anecdotes } from '@/lib/staticData';
 import { Member } from '@/lib/types';
 
 export default function Home() {

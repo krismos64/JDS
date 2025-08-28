@@ -118,7 +118,7 @@ export default function AnecdotesAdmin() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-4xl font-bold text-white mb-2">Gestion des anecdotes</h1>
-          <p className="text-gray-300">Gérez les anecdotes et moments marquants</p>
+          <p className="text-white">Gérez les anecdotes et moments marquants</p>
         </div>
         <button
           onClick={() => {
@@ -148,7 +148,7 @@ export default function AnecdotesAdmin() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2">Date</label>
+                <label className="block text-white mb-2">Date</label>
                 <input
                   type="text"
                   value={newAnecdote.date}
@@ -159,7 +159,7 @@ export default function AnecdotesAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2">Badge</label>
+                <label className="block text-white mb-2">Badge</label>
                 <select
                   value={newAnecdote.badge}
                   onChange={(e) => setNewAnecdote({ ...newAnecdote, badge: e.target.value })}
@@ -175,7 +175,7 @@ export default function AnecdotesAdmin() {
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-2">Contenu</label>
+              <label className="block text-white mb-2">Contenu</label>
               <textarea
                 value={newAnecdote.content}
                 onChange={(e) => setNewAnecdote({ ...newAnecdote, content: e.target.value })}
@@ -187,7 +187,7 @@ export default function AnecdotesAdmin() {
 
             {/* Photos */}
             <div>
-              <label className="block text-gray-300 mb-2">Photos</label>
+              <label className="block text-white mb-2">Photos</label>
               {newAnecdote.photos?.map((photo, index) => (
                 <div key={index} className="flex gap-3 mb-3 p-3 bg-white/5 rounded-lg">
                   <input
@@ -225,7 +225,7 @@ export default function AnecdotesAdmin() {
 
             {/* Vidéo */}
             <div>
-              <label className="block text-gray-300 mb-2">Vidéo YouTube (optionnel)</label>
+              <label className="block text-white mb-2">Vidéo YouTube (optionnel)</label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input
                   type="url"
@@ -284,7 +284,7 @@ export default function AnecdotesAdmin() {
           <div key={anecdote.id} className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className="flex items-center text-gray-300">
+                <div className="flex items-center text-white">
                   <Calendar className="h-4 w-4 mr-2" />
                   {anecdote.date}
                 </div>
@@ -308,9 +308,9 @@ export default function AnecdotesAdmin() {
               </div>
             </div>
             
-            <p className="text-gray-300 mb-3">{anecdote.content}</p>
+            <p className="text-white mb-3">{anecdote.content}</p>
             
-            <div className="flex gap-4 text-sm text-gray-400">
+            <div className="flex gap-4 text-sm text-gray-300">
               {anecdote.photos && anecdote.photos.length > 0 && (
                 <div className="flex items-center">
                   <Image className="h-4 w-4 mr-1" />
@@ -337,7 +337,7 @@ export default function AnecdotesAdmin() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {oliviaQuotes.map((quote, index) => (
             <div key={index} className="p-3 bg-white/5 rounded-lg">
-              <p className="text-gray-300 italic">"{quote}"</p>
+              <p className="text-white italic">"{quote}"</p>
             </div>
           ))}
         </div>

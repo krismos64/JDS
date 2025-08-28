@@ -97,7 +97,7 @@ export default function OliviaQuotesAdmin() {
             <MessageSquare className="h-10 w-10 mr-4 text-pink-400" />
             Citations d'Olivia
           </h1>
-          <p className="text-gray-300">Gérez les petites phrases cultes d'Olivia</p>
+          <p className="text-white">Gérez les petites phrases cultes d'Olivia</p>
         </div>
         <button
           onClick={() => {
@@ -117,7 +117,7 @@ export default function OliviaQuotesAdmin() {
         <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 backdrop-blur-lg rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-300 text-sm">Total citations</p>
+              <p className="text-white text-sm">Total citations</p>
               <p className="text-3xl font-bold text-white">{quotes.length}</p>
             </div>
             <MessageSquare className="h-12 w-12 text-pink-400" />
@@ -127,7 +127,7 @@ export default function OliviaQuotesAdmin() {
         <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 backdrop-blur-lg rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-300 text-sm">Plus longue</p>
+              <p className="text-white text-sm">Plus longue</p>
               <p className="text-3xl font-bold text-white">
                 {Math.max(...quotes.map(q => q.length), 0)}
               </p>
@@ -139,7 +139,7 @@ export default function OliviaQuotesAdmin() {
         <div className="bg-gradient-to-r from-red-500/20 to-pink-500/20 backdrop-blur-lg rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-300 text-sm">Moyenne mots</p>
+              <p className="text-white text-sm">Moyenne mots</p>
               <p className="text-3xl font-bold text-white">
                 {quotes.length > 0 ? Math.round(quotes.reduce((acc, q) => acc + q.split(' ').length, 0) / quotes.length) : 0}
               </p>
@@ -163,7 +163,7 @@ export default function OliviaQuotesAdmin() {
           </div>
         </div>
         
-        <div className="text-sm text-gray-400">
+        <div className="text-sm text-gray-300">
           {filteredQuotes.length} citation{filteredQuotes.length > 1 ? 's' : ''} 
           {searchTerm && ` trouvée${filteredQuotes.length > 1 ? 's' : ''} pour "${searchTerm}"`}
         </div>
@@ -177,7 +177,7 @@ export default function OliviaQuotesAdmin() {
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-gray-300 mb-2">Citation</label>
+              <label className="block text-white mb-2">Citation</label>
               <textarea
                 value={newQuote}
                 onChange={(e) => setNewQuote(e.target.value)}
@@ -185,7 +185,7 @@ export default function OliviaQuotesAdmin() {
                 placeholder="Qu'est-ce qu'Olivia a dit de mignon ?"
                 required
               />
-              <div className="text-right text-sm text-gray-400 mt-1">
+              <div className="text-right text-sm text-gray-300 mt-1">
                 {newQuote.length} caractères
               </div>
             </div>
@@ -193,7 +193,7 @@ export default function OliviaQuotesAdmin() {
             {/* Suggestions rapides */}
             {editingIndex === null && (
               <div>
-                <label className="block text-gray-300 mb-2">Suggestions populaires</label>
+                <label className="block text-white mb-2">Suggestions populaires</label>
                 <div className="flex flex-wrap gap-2">
                   {popularQuotes.filter(q => !quotes.includes(q)).map((suggestion, index) => (
                     <button
@@ -240,8 +240,8 @@ export default function OliviaQuotesAdmin() {
         
         {filteredQuotes.length === 0 ? (
           <div className="text-center py-12">
-            <MessageSquare className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-400 text-lg">
+            <MessageSquare className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-300 text-lg">
               {searchTerm ? 'Aucune citation trouvée' : 'Aucune citation enregistrée'}
             </p>
             {!searchTerm && (
@@ -284,7 +284,7 @@ export default function OliviaQuotesAdmin() {
                     "{quote}"
                   </p>
                   
-                  <div className="text-xs text-gray-400 mt-3 flex justify-between">
+                  <div className="text-xs text-gray-300 mt-3 flex justify-between">
                     <span>{quote.length} caractères</span>
                     <span>{quote.split(' ').length} mots</span>
                   </div>

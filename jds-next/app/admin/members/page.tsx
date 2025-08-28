@@ -108,7 +108,7 @@ export default function MembersAdmin() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-4xl font-bold text-white mb-2">Gestion des membres</h1>
-          <p className="text-gray-300">Gérez les membres de l'équipe JDS</p>
+          <p className="text-white">Gérez les membres de l'équipe JDS</p>
         </div>
         <button
           onClick={() => {
@@ -144,7 +144,7 @@ export default function MembersAdmin() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2">Nom</label>
+                <label className="block text-white mb-2">Nom</label>
                 <input
                   type="text"
                   value={newMember.name}
@@ -155,7 +155,7 @@ export default function MembersAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2">Surnom (optionnel)</label>
+                <label className="block text-white mb-2">Surnom (optionnel)</label>
                 <input
                   type="text"
                   value={newMember.nickname}
@@ -168,7 +168,7 @@ export default function MembersAdmin() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2">Rôle</label>
+                <label className="block text-white mb-2">Rôle</label>
                 <input
                   type="text"
                   value={newMember.role}
@@ -179,7 +179,7 @@ export default function MembersAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2">Badge</label>
+                <label className="block text-white mb-2">Badge</label>
                 <input
                   type="text"
                   value={newMember.badge}
@@ -192,7 +192,7 @@ export default function MembersAdmin() {
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-2">Photo</label>
+              <label className="block text-white mb-2">Photo</label>
               <input
                 type="url"
                 value={newMember.photo}
@@ -204,7 +204,7 @@ export default function MembersAdmin() {
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-2">Description</label>
+              <label className="block text-white mb-2">Description</label>
               <textarea
                 value={newMember.description}
                 onChange={(e) => setNewMember({ ...newMember, description: e.target.value })}
@@ -216,7 +216,7 @@ export default function MembersAdmin() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2">Jeu préféré</label>
+                <label className="block text-white mb-2">Jeu préféré</label>
                 <input
                   type="text"
                   value={newMember.stats?.favoriteGame}
@@ -229,7 +229,7 @@ export default function MembersAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2">Mouvement spécial</label>
+                <label className="block text-white mb-2">Mouvement spécial</label>
                 <input
                   type="text"
                   value={newMember.stats?.specialMove}
@@ -286,7 +286,7 @@ export default function MembersAdmin() {
                   <h3 className="text-xl font-bold text-white">
                     {member.name}
                     {member.nickname && (
-                      <span className="text-gray-400 text-base ml-2">({member.nickname})</span>
+                      <span className="text-gray-300 text-base ml-2">({member.nickname})</span>
                     )}
                   </h3>
                   <p className="text-purple-300">{member.role}</p>
@@ -312,7 +312,7 @@ export default function MembersAdmin() {
               </div>
             </div>
             
-            <p className="text-gray-300 text-sm mb-4 line-clamp-3">{member.description}</p>
+            <p className="text-white text-sm mb-4 line-clamp-3">{member.description}</p>
             
             <div className="space-y-2 text-sm">
               {member.stats?.favoriteGame && (
@@ -334,7 +334,7 @@ export default function MembersAdmin() {
         <div className="text-center py-12">
           <div className="text-6xl mb-4">👥</div>
           <h3 className="text-xl font-bold text-white mb-2">Aucun membre enregistré</h3>
-          <p className="text-gray-400 mb-4">Ajoutez le premier membre de l'équipe</p>
+          <p className="text-gray-300 mb-4">Ajoutez le premier membre de l'équipe</p>
           <button
             onClick={() => setShowAddForm(true)}
             className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"

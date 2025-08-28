@@ -82,7 +82,7 @@ export default function ScoresAdmin() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-4xl font-bold text-white mb-2">Gestion des scores</h1>
-          <p className="text-gray-300">Gérez les scores des parties</p>
+          <p className="text-white">Gérez les scores des parties</p>
         </div>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
@@ -100,7 +100,7 @@ export default function ScoresAdmin() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2">Date</label>
+                <label className="block text-white mb-2">Date</label>
                 <input
                   type="text"
                   value={newScore.date}
@@ -111,7 +111,7 @@ export default function ScoresAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2">Jeu</label>
+                <label className="block text-white mb-2">Jeu</label>
                 <select
                   value={newScore.game}
                   onChange={(e) => setNewScore({ ...newScore, game: e.target.value })}
@@ -127,7 +127,7 @@ export default function ScoresAdmin() {
             </div>
 
             <div className="space-y-3">
-              <label className="block text-gray-300 mb-2">Scores des joueurs</label>
+              <label className="block text-white mb-2">Scores des joueurs</label>
               {members.map(member => (
                 <div key={member.id} className="flex items-center gap-3">
                   <span className="text-white w-24">{member.name}:</span>
@@ -181,13 +181,13 @@ export default function ScoresAdmin() {
           <tbody>
             {scores.map((score, index) => (
               <tr key={index} className="border-t border-white/10">
-                <td className="px-6 py-4 text-gray-300">
+                <td className="px-6 py-4 text-white">
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-2" />
                     {score.date}
                   </div>
                 </td>
-                <td className="px-6 py-4 text-gray-300">
+                <td className="px-6 py-4 text-white">
                   {games.find(g => g.name === score.game)?.icon} {score.game}
                 </td>
                 <td className="px-6 py-4">
@@ -195,7 +195,7 @@ export default function ScoresAdmin() {
                     {Object.entries(score.scores).map(([playerId, playerScore]) => {
                       const member = members.find(m => m.id === playerId);
                       return (
-                        <span key={playerId} className="text-gray-300">
+                        <span key={playerId} className="text-white">
                           {member?.name}: <span className="text-white font-medium">{playerScore}</span>
                         </span>
                       );

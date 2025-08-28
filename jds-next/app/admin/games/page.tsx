@@ -97,7 +97,7 @@ export default function GamesAdmin() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-4xl font-bold text-white mb-2">Gestion des jeux</h1>
-          <p className="text-gray-300">Gérez la collection de jeux JDS</p>
+          <p className="text-white">Gérez la collection de jeux JDS</p>
         </div>
         <button
           onClick={() => {
@@ -127,7 +127,7 @@ export default function GamesAdmin() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2">Nom du jeu</label>
+                <label className="block text-white mb-2">Nom du jeu</label>
                 <input
                   type="text"
                   value={newGame.name}
@@ -138,7 +138,7 @@ export default function GamesAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2">Icône (emoji)</label>
+                <label className="block text-white mb-2">Icône (emoji)</label>
                 <input
                   type="text"
                   value={newGame.icon}
@@ -164,7 +164,7 @@ export default function GamesAdmin() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2">Champion actuel</label>
+                <label className="block text-white mb-2">Champion actuel</label>
                 <input
                   type="text"
                   value={newGame.champion}
@@ -174,7 +174,7 @@ export default function GamesAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2">Record à battre</label>
+                <label className="block text-white mb-2">Record à battre</label>
                 <input
                   type="text"
                   value={newGame.record}
@@ -216,7 +216,7 @@ export default function GamesAdmin() {
                 <span className="text-3xl">{game.icon}</span>
                 <div>
                   <h3 className="text-lg font-bold text-white">{game.name}</h3>
-                  <p className="text-sm text-gray-400">ID: {game.id}</p>
+                  <p className="text-sm text-gray-300">ID: {game.id}</p>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -256,7 +256,7 @@ export default function GamesAdmin() {
         <div className="text-center py-12">
           <div className="text-6xl mb-4">🎲</div>
           <h3 className="text-xl font-bold text-white mb-2">Aucun jeu enregistré</h3>
-          <p className="text-gray-400 mb-4">Ajoutez votre premier jeu pour commencer</p>
+          <p className="text-gray-300 mb-4">Ajoutez votre premier jeu pour commencer</p>
           <button
             onClick={() => setShowAddForm(true)}
             className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"

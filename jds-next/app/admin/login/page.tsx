@@ -44,7 +44,7 @@ export default function LoginPage() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
             🎮 Admin JDS
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-300">
+          <p className="mt-2 text-center text-sm text-white">
             Connectez-vous pour gérer le site
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function LoginPage() {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
+                  <User className="h-5 w-5 text-gray-300" />
                 </div>
                 <input
                   id="username"
@@ -86,7 +86,7 @@ export default function LoginPage() {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <Lock className="h-5 w-5 text-gray-300" />
                 </div>
                 <input
                   id="password"
@@ -114,10 +114,10 @@ export default function LoginPage() {
           </div>
         </form>
         
-        <div className="text-center text-xs text-gray-400">
+        <div className="text-center text-xs text-gray-300">
           <p>Identifiants par défaut :</p>
-          <p>Utilisateur: <span className="text-gray-300">admin</span></p>
-          <p>Mot de passe: <span className="text-gray-300">jds2025</span></p>
+          <p>Utilisateur: <span className="text-white">admin</span></p>
+          <p>Mot de passe: <span className="text-white">jds2025</span></p>
         </div>
       </div>
     </div>
