@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import AdminLoginButton from './AdminLoginButton';
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
@@ -19,6 +20,11 @@ export default function Header() {
       <div className="absolute inset-0 opacity-20">
         <div className="absolute -top-10 -left-10 w-40 h-40 bg-white rounded-full blur-3xl animate-float" />
         <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-yellow-300 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      </div>
+      
+      {/* Bouton Admin en position absolue pour desktop */}
+      <div className="absolute top-4 left-4 z-20 hidden md:block">
+        <AdminLoginButton />
       </div>
       
       <div className="container mx-auto px-4 text-center relative z-10">

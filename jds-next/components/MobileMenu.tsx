@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import AdminLoginButton from './AdminLoginButton';
 
 const menuItems = [
   { id: 'team', label: 'TEAM', icon: '👥', color: 'from-purple-500 to-pink-500' },
@@ -200,17 +201,24 @@ export default function MobileMenu() {
             ))}
           </div>
           
-          {/* Footer du menu */}
-          <div className={`mt-8 text-center transition-all duration-500 ${
+          {/* Footer du menu avec bouton Admin */}
+          <div className={`mt-8 transition-all duration-500 ${
             isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`} style={{ transitionDelay: '400ms' }}>
-            <p className="text-white/60 text-sm font-mono">
-              🎮 EMBROUILLE JDS 🎲
-            </p>
-            <div className="mt-2 flex justify-center gap-1">
-              <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-              <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" style={{ animationDelay: '200ms' }}></div>
-              <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" style={{ animationDelay: '400ms' }}></div>
+            {/* Bouton Admin pour mobile */}
+            <div className="flex justify-center mb-6">
+              <AdminLoginButton />
+            </div>
+            
+            <div className="text-center">
+              <p className="text-white/60 text-sm font-mono">
+                🎮 EMBROUILLE JDS 🎲
+              </p>
+              <div className="mt-2 flex justify-center gap-1">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" style={{ animationDelay: '200ms' }}></div>
+                <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" style={{ animationDelay: '400ms' }}></div>
+              </div>
             </div>
           </div>
         </div>
