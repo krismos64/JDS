@@ -12,25 +12,37 @@ export interface UserToken {
 }
 
 export async function verifyCredentials(username: string, password: string): Promise<boolean> {
-  // Identifiants admin - utilisons le hash qui fonctionne
+  // Identifiants admin
   const ADMIN_USERNAME = 'admin';
-  const ADMIN_PASSWORD_HASH = '$2b$10$Fx83HkNqPIQUYG1hCTmai.s1arml35ds4GDztLUmFyBq4zjFqcOFC'; // jds2025
+  const ADMIN_PASSWORD = 'jds2025';
   
-  console.log('Tentative de connexion:', { username, providedUsername: ADMIN_USERNAME });
-  console.log('Variables env:', { 
-    envUsername: process.env.ADMIN_USERNAME,
-    envHash: process.env.ADMIN_PASSWORD_HASH 
-  });
+  // Trim des espaces pour éviter les erreurs
+  const trimmedUsername = username.trim();
+  const trimmedPassword = password.trim();
   
-  if (username !== ADMIN_USERNAME) {
-    console.log('Username invalide');
-    return false;
+  console.log('Tentative de connexion:', { username: trimmedUsername });
+  
+  // Vérification simple pour le développement
+  // En production, utiliser un hash bcrypt approprié
+  if (trimmedUsername === ADMIN_USERNAME && trimmedPassword === ADMIN_PASSWORD) {
+    console.log('Connexion réussie');
+    return true;
   }
   
-  const isValid = bcrypt.compareSync(password, ADMIN_PASSWORD_HASH);
-  console.log('Vérification mot de passe:', isValid);
+  // Alternative avec bcrypt (pour plus tard)
+  // const ADMIN_PASSWORD_HASH = '$2a$10$Fx83HkNqPIQUYG1hCTmai.s1arml35ds4GDztLUmFyBq4zjFqcOFC';
+  // if (username === ADMIN_USERNAME) {
+  //   try {
+  //     const isValid = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+  //     return isValid;
+  //   } catch (error) {
+  //     console.error('Erreur bcrypt:', error);
+  //     return false;
+  //   }
+  // }
   
-  return isValid;
+  console.log('Identifiants invalides');
+  return false;
 }
 
 export async function createToken(user: UserToken): Promise<string> {

@@ -4,7 +4,11 @@ import { verifyCredentials, setSession } from '@/lib/auth';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { username, password } = body;
+    let { username, password } = body;
+    
+    // Trim des espaces
+    username = username?.trim();
+    password = password?.trim();
 
     console.log('Login attempt:', { username, password: password ? '***' : 'missing' });
 

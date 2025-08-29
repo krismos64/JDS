@@ -32,18 +32,28 @@ export default function LoginPage() {
   const [particles, setParticles] = useState<Array<{id: number, x: number, y: number}>>([]);
   const [currentIcon, setCurrentIcon] = useState(0);
   const [glitchEffect, setGlitchEffect] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
+
+  // S'assurer que le composant est monté côté client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Animation des icônes
   useEffect(() => {
+    if (!mounted) return;
+    
     const interval = setInterval(() => {
       setCurrentIcon((prev) => (prev + 1) % gameIcons.length);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [mounted]);
 
   // Particules aléatoires
   useEffect(() => {
+    if (!mounted) return;
+    
     const generateParticle = () => {
       const particle = {
         id: Date.now(),
@@ -53,9 +63,14 @@ export default function LoginPage() {
       setParticles(prev => [...prev.slice(-10), particle]);
     };
 
+    // Générer quelques particules initiales
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => generateParticle(), i * 400);
+    }
+
     const interval = setInterval(generateParticle, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [mounted]);
 
   // Effet de glitch au focus
   const handleFieldFocus = (field: string) => {
@@ -77,10 +92,17 @@ export default function LoginPage() {
     }, 500);
 
     try {
+      // Trim des espaces pour éviter les erreurs
+      const trimmedUsername = username.trim();
+      const trimmedPassword = password.trim();
+      
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ 
+          username: trimmedUsername, 
+          password: trimmedPassword 
+        }),
       });
 
       const data = await response.json();
@@ -121,18 +143,19 @@ export default function LoginPage() {
           animation: 'grid-move 10s linear infinite'
         }}></div>
         
-        {/* Particules flottantes */}
-        {particles.map(particle => (
+        {/* Particules flottantes - uniquement côté client */}
+        {mounted && particles.map((particle, index) => (
           <div
             key={particle.id}
             className="absolute text-4xl animate-float opacity-20"
             style={{
               left: `${particle.x}%`,
               top: `${particle.y}%`,
-              animation: `float ${10 + Math.random() * 10}s ease-in-out infinite`
+              animationDuration: `${15}s`,
+              animationDelay: `${index * 0.5}s`
             }}
           >
-            {floatingIcons[Math.floor(Math.random() * floatingIcons.length)]}
+            {floatingIcons[index % floatingIcons.length]}
           </div>
         ))}
       </div>
@@ -188,8 +211,12 @@ export default function LoginPage() {
             {/* Icône principale */}
             <div className={`text-8xl mb-4 transform transition-all duration-500 ${glitchEffect ? 'animate-glitch' : ''}`}>
               <div className="relative">
-                <span className="absolute inset-0 text-cyan-400 blur-sm animate-pulse">{gameIcons[currentIcon]}</span>
-                <span className="relative">{gameIcons[currentIcon]}</span>
+                {mounted && (
+                  <>
+                    <span className="absolute inset-0 text-cyan-400 blur-sm animate-pulse">{gameIcons[currentIcon]}</span>
+                    <span className="relative">{gameIcons[currentIcon]}</span>
+                  </>
+                )}
               </div>
             </div>
             
@@ -390,17 +417,19 @@ export default function LoginPage() {
               </div>
 
               {/* Footer gaming */}
-              <div className="mt-6 flex justify-center gap-2">
-                {gameIcons.slice(0, 5).map((icon, i) => (
-                  <span
-                    key={i}
-                    className="text-2xl opacity-50 hover:opacity-100 transition-opacity cursor-pointer hover:scale-125 transform"
-                    style={{ animationDelay: `${i * 100}ms` }}
-                  >
-                    {icon}
-                  </span>
-                ))}
-              </div>
+              {mounted && (
+                <div className="mt-6 flex justify-center gap-2">
+                  {gameIcons.slice(0, 5).map((icon, i) => (
+                    <span
+                      key={i}
+                      className="text-2xl opacity-50 hover:opacity-100 transition-opacity cursor-pointer hover:scale-125 transform"
+                      style={{ animationDelay: `${i * 100}ms` }}
+                    >
+                      {icon}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

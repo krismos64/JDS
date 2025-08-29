@@ -30,15 +30,15 @@ export default function AdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Ne pas afficher le layout sur la page de login
-  if (pathname === '/admin/login') {
-    return <>{children}</>;
-  }
-
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  // Ne pas afficher le layout sur la page de login
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
@@ -80,28 +80,52 @@ export default function AdminLayout({
         }}
       />
 
-      {/* Mobile Header avec menu hamburger */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-xl border-b border-cyan-500/30 shadow-2xl shadow-cyan-500/20">
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-400/50">
-              <Zap className="h-5 w-5 text-white" />
+      {/* Mobile Header optimisé avec menu hamburger */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-cyan-500/30 shadow-2xl shadow-cyan-500/20">
+        <div className="flex items-center justify-between p-3 sm:p-4">
+          {/* Logo et titre mobile first */}
+          <motion.div 
+            className="flex items-center space-x-2 sm:space-x-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-400/50">
+              <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">JDS Admin</h1>
-          </div>
+            <div>
+              <h1 className="text-lg sm:text-xl font-black bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">JDS ADMIN</h1>
+              <div className="text-xs text-cyan-400 font-mono hidden sm:block">
+                {currentTime.toLocaleTimeString('fr-FR', { 
+                  hour: '2-digit', 
+                  minute: '2-digit' 
+                })}
+              </div>
+            </div>
+          </motion.div>
           
+          {/* Menu hamburger futuriste */}
           <motion.button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/30 hover:text-cyan-200 transition-all shadow-lg shadow-cyan-400/25"
+            className="relative p-2 sm:p-3 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-400/40 text-cyan-300 hover:bg-gradient-to-r hover:from-cyan-500/30 hover:to-purple-500/30 hover:text-white transition-all shadow-lg shadow-cyan-400/25 group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
+            {/* Effet de brillance */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500 rounded-xl"></div>
+            
             <motion.div
               animate={{ rotate: sidebarOpen ? 180 : 0 }}
               transition={{ duration: 0.3 }}
+              className="relative z-10"
             >
-              {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {sidebarOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
             </motion.div>
+            
+            {/* Badge de notification */}
+            {!sidebarOpen && (
+              <div className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-r from-pink-500 to-red-500 rounded-full animate-pulse"></div>
+            )}
           </motion.button>
         </div>
       </div>
@@ -216,14 +240,17 @@ export default function AdminLayout({
             <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
             
             <motion.div
-              className="absolute top-20 left-4 right-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-purple-500/20 border border-cyan-500/30 overflow-hidden"
+              className="absolute top-16 sm:top-20 left-2 right-2 sm:left-4 sm:right-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-purple-500/20 border border-cyan-500/30 overflow-hidden max-h-[calc(100vh-8rem)]"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              {/* Menu Content */}
-              <div className="p-2">
+              {/* Grille cyberpunk en header */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500"></div>
+              
+              {/* Menu Content avec scroll */}
+              <div className="p-2 sm:p-3 overflow-y-auto max-h-full">
                 {navItems.map((item, index) => {
                   const Icon = item.icon;
                   const isActive = pathname === item.href;
@@ -239,52 +266,96 @@ export default function AdminLayout({
                         href={item.href}
                         onClick={() => setSidebarOpen(false)}
                         className={`
-                          flex items-center px-4 py-4 mx-2 my-1 rounded-xl transition-all duration-200
+                          flex items-center px-3 py-3 sm:px-4 sm:py-4 mx-1 sm:mx-2 my-1 rounded-lg sm:rounded-xl transition-all duration-200 group relative overflow-hidden
                           ${isActive
-                            ? `bg-gradient-to-r ${item.color} text-white shadow-lg shadow-${item.color.split('-')[1]}-500/50`
+                            ? `bg-gradient-to-r ${item.color} text-white shadow-lg`
                             : 'text-white hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-purple-500/20 hover:shadow-lg hover:shadow-cyan-500/25'
                           }
                         `}
                       >
+                        {/* Effet de scan au hover */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                        
                         <div className={`
-                          w-10 h-10 rounded-lg flex items-center justify-center mr-4
+                          w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center mr-3 sm:mr-4 relative
                           ${isActive ? 'bg-white/20' : 'bg-cyan-500/20'}
                         `}>
-                          <Icon className={`h-5 w-5 ${isActive ? 'text-white' : 'text-cyan-400'}`} />
+                          <Icon className={`h-4 w-4 sm:h-5 sm:w-5 ${isActive ? 'text-white' : 'text-cyan-400'}`} />
+                          {isActive && (
+                            <div className="absolute -inset-1 bg-white/20 rounded-lg blur-sm"></div>
+                          )}
                         </div>
-                        <div className="flex-1">
-                          <span className="font-semibold text-lg">{item.label}</span>
+                        
+                        <div className="flex-1 relative">
+                          <span className="font-bold text-base sm:text-lg tracking-wide">
+                            {item.label}
+                          </span>
+                          {isActive && (
+                            <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-white/50 rounded-full"></div>
+                          )}
                         </div>
+                        
                         {isActive && (
                           <motion.div
-                            className="w-3 h-3 bg-white rounded-full"
+                            className="flex items-center space-x-1"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.2 }}
-                          />
+                          >
+                            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full animate-pulse"></div>
+                            <div className="text-xs sm:text-sm opacity-70">ACTIF</div>
+                          </motion.div>
                         )}
                       </Link>
                     </motion.div>
                   );
                 })}
                 
-                {/* Logout dans le menu mobile */}
+                {/* Logout dans le menu mobile - style gaming */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ delay: navItems.length * 0.05, duration: 0.2 }}
-                  className="mt-2 pt-2 border-t border-cyan-500/30"
+                  className="mt-3 pt-3 border-t border-gradient-to-r border-cyan-500/30"
                 >
                   <button
                     onClick={handleLogout}
-                    className="flex items-center w-full px-4 py-4 mx-2 rounded-xl text-red-400 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-600 hover:shadow-lg hover:shadow-red-500/50 transition-all duration-200"
+                    className="flex items-center w-full px-3 py-3 sm:px-4 sm:py-4 mx-1 sm:mx-2 rounded-lg sm:rounded-xl text-red-400 hover:text-white hover:bg-gradient-to-r hover:from-red-500/80 hover:to-pink-600/80 hover:shadow-lg hover:shadow-red-500/50 transition-all duration-200 group relative overflow-hidden"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center mr-4">
-                      <LogOut className="h-5 w-5 text-red-400" />
+                    {/* Effet de scan au hover */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-red-500/20 flex items-center justify-center mr-3 sm:mr-4 group-hover:bg-red-500/30 transition-colors">
+                      <LogOut className="h-4 w-4 sm:h-5 sm:w-5 text-red-400 group-hover:text-white transition-colors" />
                     </div>
-                    <span className="font-semibold text-lg">Déconnexion</span>
+                    <span className="font-bold text-base sm:text-lg tracking-wide">
+                      DÉCONNEXION
+                    </span>
+                    <div className="ml-auto text-xs opacity-60">🚪</div>
                   </button>
+                </motion.div>
+                
+                {/* Footer du menu avec stats */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="mt-4 p-3 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-lg border border-cyan-500/20"
+                >
+                  <div className="text-center space-y-1">
+                    <div className="text-xs text-cyan-400 font-mono">SYSTÈME STATUS</div>
+                    <div className="flex justify-center items-center space-x-2 text-xs text-green-400">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span>OPÉRATIONNEL</span>
+                      <div className="text-white font-mono">
+                        {currentTime.toLocaleTimeString('fr-FR', { 
+                          hour: '2-digit', 
+                          minute: '2-digit' 
+                        })}
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
               </div>
             </motion.div>
