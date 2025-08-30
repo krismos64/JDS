@@ -5,7 +5,6 @@ import FuturisticHeader from '@/components/FuturisticHeader';
 import GamingNav from '@/components/GamingNav';
 import MobileMenu from '@/components/MobileMenu';
 import SwipeIndicator from '@/components/SwipeIndicator';
-import ClientWrapper from '@/components/ClientWrapper';
 import BackToTop from '@/components/BackToTop';
 import ParticleBackground from '@/components/ParticleBackground';
 import AudioPlayerAdvanced from '@/components/AudioPlayerAdvanced';
@@ -28,7 +27,6 @@ export default function Home() {
   return (
     <div className="min-h-screen text-light relative">
       <ParticleBackground />
-      <ClientWrapper />
       <AudioPlayerAdvanced />
       <MobileMenu />
       <SwipeIndicator />

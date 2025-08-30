@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X, Users, Trophy, Calendar, Gamepad2, MessageSquare, Play } from 'lucide-react';
+import AdminLoginButton from './AdminLoginButton';
 
 const navItems = [
   { id: 'team', label: 'TEAM', icon: Users, color: 'text-primary' },
@@ -48,6 +49,11 @@ export default function GamingNav() {
       <nav className="hidden xl:block fixed top-8 left-1/2 transform -translate-x-1/2 z-50">
         <div className="glass-card px-8 py-4">
           <div className="flex items-center space-x-8">
+            {/* Bouton Admin à gauche */}
+            <div className="pr-4 border-r border-light/20">
+              <AdminLoginButton />
+            </div>
+            
             {navItems.map((item, index) => {
               const Icon = item.icon;
               return (
