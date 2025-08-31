@@ -219,6 +219,24 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@keyframes slow-zoom {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes scan-vertical {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
 /* Classes utilitaires gaming */
 .animate-neon-pulse {
   animation: neonPulse 2s ease-in-out infinite;
@@ -242,6 +260,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-data-stream {
   animation: dataStream 2s linear infinite;
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s ease-in-out infinite;
+}
+
+.animate-scan-vertical {
+  animation: scan-vertical 8s linear infinite;
 }
 
 /* Composants gaming */

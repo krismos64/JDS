@@ -272,7 +272,7 @@ export default function MembersAdmin() {
                       </label>
                       <input
                         type="text"
-                        value={newMember.name}
+                        value={newMember.name || ''}
                         onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
                         className="w-full px-4 py-3 bg-gray-900/50 border-2 border-cyan-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:bg-gray-900/70 transition-all"
                         placeholder="Nom du membre"
@@ -285,7 +285,7 @@ export default function MembersAdmin() {
                       </label>
                       <input
                         type="text"
-                        value={newMember.nickname}
+                        value={newMember.nickname || ''}
                         onChange={(e) => setNewMember({ ...newMember, nickname: e.target.value })}
                         className="w-full px-4 py-3 bg-gray-900/50 border-2 border-cyan-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:bg-gray-900/70 transition-all"
                         placeholder="Surnom gaming"
@@ -300,7 +300,7 @@ export default function MembersAdmin() {
                       </label>
                       <input
                         type="text"
-                        value={newMember.role}
+                        value={newMember.role || ''}
                         onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
                         className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:bg-gray-900/70 transition-all"
                         placeholder="Stratège, Bluffeur, Tank..."
@@ -313,7 +313,7 @@ export default function MembersAdmin() {
                       </label>
                       <input
                         type="text"
-                        value={newMember.badge}
+                        value={newMember.badge || ''}
                         onChange={(e) => setNewMember({ ...newMember, badge: e.target.value })}
                         className="w-full px-4 py-3 bg-gray-900/50 border-2 border-yellow-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 focus:bg-gray-900/70 transition-all"
                         placeholder="Badge spécial"
@@ -327,8 +327,8 @@ export default function MembersAdmin() {
                       Avatar/Photo
                     </label>
                     <input
-                      type="url"
-                      value={newMember.photo}
+                      type="text"
+                      value={newMember.photo || ''}
                       onChange={(e) => setNewMember({ ...newMember, photo: e.target.value })}
                       className="w-full px-4 py-3 bg-gray-900/50 border-2 border-pink-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-pink-400 focus:bg-gray-900/70 transition-all"
                       placeholder="/img/avatar.jpg"
@@ -341,7 +341,7 @@ export default function MembersAdmin() {
                       Bio/Description
                     </label>
                     <textarea
-                      value={newMember.description}
+                      value={newMember.description || ''}
                       onChange={(e) => setNewMember({ ...newMember, description: e.target.value })}
                       className="w-full px-4 py-3 bg-gray-900/50 border-2 border-green-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-green-400 focus:bg-gray-900/70 transition-all h-24 sm:h-32 resize-none"
                       placeholder="Description gaming du membre..."
@@ -356,7 +356,7 @@ export default function MembersAdmin() {
                       </label>
                       <input
                         type="text"
-                        value={newMember.stats?.favoriteGame}
+                        value={newMember.stats?.favoriteGame || ''}
                         onChange={(e) => setNewMember({
                           ...newMember,
                           stats: { ...newMember.stats, favoriteGame: e.target.value }
@@ -371,7 +371,7 @@ export default function MembersAdmin() {
                       </label>
                       <input
                         type="text"
-                        value={newMember.stats?.specialMove}
+                        value={newMember.stats?.specialMove || ''}
                         onChange={(e) => setNewMember({
                           ...newMember,
                           stats: { ...newMember.stats, specialMove: e.target.value }

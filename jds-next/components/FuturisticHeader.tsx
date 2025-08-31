@@ -20,6 +20,23 @@ export default function FuturisticHeader() {
 
   return (
     <header className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background image with overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-slow-zoom"
+        style={{
+          backgroundImage: `url('/img/Nightclub_simple.png')`,
+          filter: 'brightness(0.3) saturate(1.2)',
+        }}
+      >
+        {/* Gradient overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-blue-900/20 to-pink-900/20 animate-pulse" />
+        {/* Animated scan lines for cyberpunk effect */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent animate-scan-vertical" />
+        </div>
+      </div>
+
       {/* Background particles */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-2 h-2 bg-neon-cyan rounded-full animate-pulse"></div>
