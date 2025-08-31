@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Trash2, Edit2, Calendar, Image, Video, MessageSquare, BookOpen, Sparkles, Quote, Camera, Film, Star, Zap, Target } from 'lucide-react';
+import { Plus, Trash2, Edit2, Calendar, Image, Video, MessageSquare, BookOpen, Sparkles, Camera, Film, Star, Target, Quote } from 'lucide-react';
 import { Anecdote } from '@/lib/types';
 import FuturisticCard from '@/components/admin/FuturisticCard';
 import FuturisticButton from '@/components/admin/FuturisticButton';
@@ -11,7 +11,6 @@ const anecdoteEmojis = ['📚', '😂', '🎭', '🎪', '🎨', '✨', '💫', '
 
 export default function AnecdotesAdmin() {
   const [anecdotes, setAnecdotes] = useState<Anecdote[]>([]);
-  const [oliviaQuotes, setOliviaQuotes] = useState<string[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingAnecdote, setEditingAnecdote] = useState<Anecdote | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -43,7 +42,6 @@ export default function AnecdotesAdmin() {
       if (response.ok) {
         const data = await response.json();
         setAnecdotes(data.anecdotes || []);
-        setOliviaQuotes(data.oliviaQuotes || []);
       }
     } catch (error) {
       console.error('Erreur lors du chargement des anecdotes:', error);
@@ -590,66 +588,6 @@ export default function AnecdotesAdmin() {
         </motion.div>
       )}
 
-      {/* Section Citations Olivia - Style gaming */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <FuturisticCard glowColor="from-pink-400/30 to-rose-500/30">
-          <div className="p-4 sm:p-6">
-            <div className="flex items-center justify-center mb-6">
-              <div className="flex items-center space-x-3">
-                <motion.div
-                  animate={{ 
-                    rotate: [0, 5, -5, 0],
-                    scale: [1, 1.05, 1]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                >
-                  <Quote className="h-6 w-6 text-pink-400" />
-                </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent uppercase tracking-wider">
-                  OLIVIA QUOTES
-                </h2>
-                <div className="text-xs bg-pink-500/20 px-2 py-1 rounded-full text-pink-300 font-bold">
-                  {oliviaQuotes.length}
-                </div>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-              {oliviaQuotes.map((quote, index) => (
-                <motion.div 
-                  key={index} 
-                  className="p-3 sm:p-4 bg-gradient-to-br from-pink-500/10 to-rose-500/10 border border-pink-500/20 rounded-lg group hover:from-pink-500/20 hover:to-rose-500/20 transition-all"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.05 }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <p className="text-pink-100 italic leading-relaxed text-sm sm:text-base">
-                    <span className="text-pink-400 text-lg">“</span>
-                    {quote}
-                    <span className="text-pink-400 text-lg">”</span>
-                  </p>
-                  <div className="mt-2 text-right">
-                    <span className="text-xs text-pink-400 font-medium">- OLIVIA</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            {oliviaQuotes.length === 0 && (
-              <div className="text-center py-8">
-                <p className="text-pink-300 mb-4">Aucune citation d'Olivia encore...</p>
-                <div className="text-4xl mb-2">😂</div>
-                <p className="text-pink-400 text-sm font-medium">En attente des premières perles !</p>
-              </div>
-            )}
-          </div>
-        </FuturisticCard>
-      </motion.div>
     </div>
   );
 }
