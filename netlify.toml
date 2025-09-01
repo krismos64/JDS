@@ -10,9 +10,6 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[plugins.inputs]
-  enable = true
-
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
