@@ -1,0 +1,20 @@
+{
+  "components/CocaAnimation.tsx -> lottie-react": {
+    "id": "components/CocaAnimation.tsx -> lottie-react",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_lottie-react_build_index_umd_js.js"
+    ]
+  },
+  "components/FuturisticHeader.tsx -> lottie-react": {
+    "id": "components/FuturisticHeader.tsx -> lottie-react",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_lottie-react_build_index_umd_js.js"
+    ]
+  },
+  "components/PodiumAnimation.tsx -> lottie-react": {
+    "id": "components/PodiumAnimation.tsx -> lottie-react",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_lottie-react_build_index_umd_js.js"
+    ]
+  }
+}

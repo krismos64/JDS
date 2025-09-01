@@ -1,0 +1,53 @@
+{
+  "members": [
+    {
+      "id": "coco",
+      "name": "Coco",
+      "role": "Règles Master",
+      "badge": "Règles Master",
+      "photo": "/img/B6CA6EE4-2593-452B-B77C-6B938639A852.jpg",
+      "description": "Elle adore lire les règles que personne ne comprend, c'est une experte en analyse de plateau qui peut passer 20 minutes à réfléchir à son coup... pour finalement jouer exactement ce qu'on lui avait suggéré au début ! 🤔 Détient le record du \"Ah mais si j'avais su...\" le plus utilisé en une soirée.",
+      "stats": {
+        "favoriteGame": "Cortex",
+        "specialMove": "A déjà gagné une partie sans comprendre les règles"
+      }
+    },
+    {
+      "id": "stacy",
+      "name": "Stacy",
+      "role": "Reine des jeux de bluff",
+      "badge": "Bluff Queen",
+      "photo": "/img/577D625C-95F0-4619-AE0F-6EE7900B4353.jpg",
+      "description": "Reine incontestée du bluff, capable de faire croire qu'elle a une mauvaise main même quand elle gagne ! 🃏 Son rire contagieux peut déconcentrer les adversaires - technique secrète ?",
+      "stats": {
+        "favoriteGame": "Memory",
+        "specialMove": "Se souvient de toutes les cartes sauf quand c'est son tour"
+      }
+    },
+    {
+      "id": "fab",
+      "name": "Fab le kebab",
+      "role": "Champion des jeux d'adresse",
+      "badge": "Adresse Pro",
+      "photo": "/img/F5B12578-B2BD-463D-947D-6F0A5167B8FA.jpg",
+      "description": "Le joueur qui arrive toujours avec des snacks et pizzas pour amadouer les autres. 🌯 Maître dans l'art de négocier des alliances... qu'il trahit systématiquement !",
+      "stats": {
+        "favoriteGame": "6 qui prend",
+        "specialMove": "N'a jamais joué un seul tour sans dire \"Ah mais c'est pas ce que je voulais faire ça !\""
+      }
+    },
+    {
+      "id": "chris",
+      "name": "Chris",
+      "nickname": "",
+      "role": "Pro de l'escroquerie",
+      "badge": "Saboteur",
+      "photo": "/img/webResult.jpg",
+      "description": "Le stratège silencieux qui ne dit rien pendant toute la partie... pour finalement révéler qu'il était le saboteur depuis le début ! 🕵️ Expert en analyse de ses adversaires, mais ne gagne jamais",
+      "stats": {
+        "favoriteGame": "Saboteur",
+        "specialMove": "Capable de mélanger les cartes pendant 10 minutes pour \"être sûr que c'est bien mélangé\""
+      }
+    }
+  ]
+}
