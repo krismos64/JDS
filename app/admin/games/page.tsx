@@ -108,10 +108,10 @@ export default function GamesAdmin() {
           <motion.div
             key={index}
             className="absolute text-2xl opacity-10"
-            initial={{ x: Math.random() * window.innerWidth, y: window.innerHeight + 50 }}
+            initial={{ x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920), y: (typeof window !== 'undefined' ? window.innerHeight : 1080) + 50 }}
             animate={{
               y: -100,
-              x: Math.random() * window.innerWidth,
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920),
               rotate: [0, 360]
             }}
             transition={{
