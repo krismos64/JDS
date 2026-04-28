@@ -33,6 +33,13 @@ export interface Score {
   };
 }
 
+export interface NextGame {
+  date: string;
+  displayDate: string;
+  highlight: string;
+  isActive: boolean;
+}
+
 export interface Anecdote {
   id: string;
   date: string;

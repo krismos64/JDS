@@ -59,6 +59,16 @@ export default function AdminDashboard() {
 
   const cards = [
     {
+      title: 'Next Game',
+      value: '📅',
+      icon: Calendar,
+      color: 'from-cyan-400 to-blue-500',
+      glowColor: 'from-cyan-400/30 to-blue-500/30',
+      link: '/admin/next-game',
+      description: 'Prochaine soirée',
+      emoji: '⏳'
+    },
+    {
       title: 'Membres',
       value: stats.totalMembers,
       icon: Users,

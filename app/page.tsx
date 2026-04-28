@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FuturisticHeader from '@/components/FuturisticHeader';
 import GamingNav from '@/components/GamingNav';
 import MobileMenu from '@/components/MobileMenu';
@@ -13,11 +13,28 @@ import TeamPhoto from '@/components/TeamPhoto';
 import CocaAnimation from '@/components/CocaAnimation';
 import PodiumAnimation from '@/components/PodiumAnimation';
 import { members, games, scores, anecdotes } from '@/lib/staticData';
-import { Member } from '@/lib/types';
+import { Member, NextGame } from '@/lib/types';
 
 export default function Home() {
   const [selectedPlayer, setSelectedPlayer] = useState<Member | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [nextGame, setNextGame] = useState<NextGame | null>(null);
+
+  useEffect(() => {
+    fetch('/api/next-game')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => setNextGame(data))
+      .catch(() => setNextGame(null));
+  }, []);
+
+  const daysLeft = (() => {
+    if (!nextGame?.date) return null;
+    const target = new Date(nextGame.date);
+    if (isNaN(target.getTime())) return null;
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    return Math.ceil((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  })();
 
   const handlePlayerClick = (member: Member) => {
     setSelectedPlayer(member);
@@ -77,44 +94,59 @@ export default function Home() {
         <TeamPhoto />
 
         {/* Section 2: Next Game */}
-        <section id="next-game" className="min-h-screen flex items-center py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-6xl md:text-8xl font-black mb-12">
-              <span className="hologram-text animate-neon-pulse">NEXT GAME</span>
-            </h2>
-            
-            <div className="max-w-4xl mx-auto gaming-card p-12 mb-12">
-              <div className="text-8xl font-black mb-8 animate-glitch">
-                FÉV 2025
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                <div className="glass-card p-4">
-                  <div className="text-3xl text-primary font-bold">4</div>
-                  <div className="text-xs font-mono text-light/60">PLAYERS</div>
-                </div>
-                <div className="glass-card p-4">
-                  <div className="text-3xl text-secondary font-bold">∞</div>
-                  <div className="text-xs font-mono text-light/60">GAMES</div>
-                </div>
-                <div className="glass-card p-4">
-                  <div className="text-3xl text-tertiary font-bold">1</div>
-                  <div className="text-xs font-mono text-light/60">NIGHT</div>
-                </div>
-                <div className="glass-card p-4">
-                  <div className="text-3xl text-accent font-bold">MAX</div>
-                  <div className="text-xs font-mono text-light/60">FUN</div>
-                </div>
-              </div>
+        {nextGame?.isActive && (
+          <section id="next-game" className="min-h-screen flex items-center py-20">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-6xl md:text-8xl font-black mb-12">
+                <span className="hologram-text animate-neon-pulse">NEXT GAME</span>
+              </h2>
 
-              <div className="text-2xl mb-8">
-                👶 <span className="hologram-text animate-hologram">OLIVIA SERA PRÉSENTE!</span>
+              <div className="max-w-4xl mx-auto gaming-card p-12 mb-12">
+                <div className="text-6xl md:text-8xl font-black mb-4 animate-glitch">
+                  {nextGame.displayDate}
+                </div>
+
+                {daysLeft !== null && daysLeft > 0 && (
+                  <div className="text-secondary font-mono text-lg mb-8">
+                    ⏳ Dans {daysLeft} jour{daysLeft > 1 ? 's' : ''}
+                  </div>
+                )}
+                {daysLeft === 0 && (
+                  <div className="text-accent font-mono text-2xl mb-8 animate-pulse">
+                    🎉 C'EST AUJOURD'HUI !
+                  </div>
+                )}
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                  <div className="glass-card p-4">
+                    <div className="text-3xl text-primary font-bold">4</div>
+                    <div className="text-xs font-mono text-light/60">PLAYERS</div>
+                  </div>
+                  <div className="glass-card p-4">
+                    <div className="text-3xl text-secondary font-bold">∞</div>
+                    <div className="text-xs font-mono text-light/60">GAMES</div>
+                  </div>
+                  <div className="glass-card p-4">
+                    <div className="text-3xl text-tertiary font-bold">1</div>
+                    <div className="text-xs font-mono text-light/60">NIGHT</div>
+                  </div>
+                  <div className="glass-card p-4">
+                    <div className="text-3xl text-accent font-bold">MAX</div>
+                    <div className="text-xs font-mono text-light/60">FUN</div>
+                  </div>
+                </div>
+
+                {nextGame.highlight && (
+                  <div className="text-2xl mb-8">
+                    👶 <span className="hologram-text animate-hologram">{nextGame.highlight}</span>
+                  </div>
+                )}
+
+                <CocaAnimation />
               </div>
-              
-              <CocaAnimation />
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Section 3: Games */}
         <section id="games" className="min-h-screen flex items-center py-20">

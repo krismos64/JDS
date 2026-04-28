@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Member, Game, Score, Anecdote } from './types';
+import { Member, Game, Score, Anecdote, NextGame } from './types';
 
 const dataDirectory = path.join(process.cwd(), 'data');
 
@@ -38,4 +38,9 @@ export function getAnecdotes(): Anecdote[] {
 export function getOliviaQuotes(): string[] {
   const data = loadData<{ oliviaQuotes: string[] }>('anecdotes.json');
   return data.oliviaQuotes;
+}
+
+export function getNextGame(): NextGame {
+  const data = loadData<{ nextGame: NextGame }>('nextGame.json');
+  return data.nextGame;
 }

@@ -4,18 +4,19 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Home, 
-  Users, 
-  Trophy, 
-  BarChart, 
-  BookOpen, 
-  LogOut, 
+import {
+  Home,
+  Users,
+  Trophy,
+  BarChart,
+  BookOpen,
+  LogOut,
   Menu,
   X,
   Dice1,
   Sparkles,
-  Gamepad2
+  Gamepad2,
+  Calendar
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -44,6 +45,7 @@ export default function AdminLayout({
 
   const navItems = [
     { href: '/admin', label: 'Dashboard', icon: Home },
+    { href: '/admin/next-game', label: 'Next Game', icon: Calendar },
     { href: '/admin/members', label: 'Membres', icon: Users },
     { href: '/admin/games', label: 'Jeux', icon: Dice1 },
     { href: '/admin/scores', label: 'Scores', icon: Trophy },
