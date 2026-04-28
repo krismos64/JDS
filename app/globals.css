@@ -694,10 +694,19 @@ h1, h2, h3, h4, h5, h6 {
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
-  
+
   .safe-top {
     padding-top: env(safe-area-inset-top);
   }
+}
+
+/* Cacher la scrollbar sur les carrousels */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Optimisation des performances pour mobile */

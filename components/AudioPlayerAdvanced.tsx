@@ -86,7 +86,7 @@ export default function AudioPlayerAdvanced() {
 
   return (
     <>
-      <div className="fixed bottom-8 right-8 z-50">
+      <div className="fixed bottom-24 md:bottom-28 left-4 md:left-6 z-40">
         <div className="relative group">
           <button
             onClick={toggleAudio}
@@ -107,7 +107,7 @@ export default function AudioPlayerAdvanced() {
 
           {/* Visualiseur */}
           {isPlaying && (
-            <div className="absolute bottom-16 right-0 bg-black/90 rounded-lg p-2 backdrop-blur-sm">
+            <div className="absolute bottom-16 left-0 bg-black/90 rounded-lg p-2 backdrop-blur-sm">
               <canvas 
                 ref={canvasRef}
                 width={120}
@@ -119,7 +119,7 @@ export default function AudioPlayerAdvanced() {
 
           {/* Contrôle du volume */}
           <div 
-            className="absolute bottom-0 right-16 bg-black/90 rounded-full px-4 py-2 backdrop-blur-sm flex items-center gap-2 transition-all duration-300"
+            className="absolute bottom-0 left-16 bg-black/90 rounded-full px-4 py-2 backdrop-blur-sm flex items-center gap-2 transition-all duration-300"
             style={{ opacity: showVolumeControl ? 1 : 0, pointerEvents: showVolumeControl ? 'auto' : 'none' }}
           >
             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@ export default function AudioPlayerAdvanced() {
 
           <button
             onClick={() => setShowVolumeControl(!showVolumeControl)}
-            className="absolute bottom-0 left-16 w-10 h-10 bg-black/70 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-black/90"
+            className="absolute bottom-0 right-[-3.5rem] w-10 h-10 bg-black/70 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-black/90"
           >
             <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3z"/>
@@ -149,7 +149,7 @@ export default function AudioPlayerAdvanced() {
 
         {/* Notification */}
         {!hasInteracted && (
-          <div className="absolute bottom-20 right-0 bg-black/90 text-white px-4 py-2 rounded-lg text-sm backdrop-blur-sm animate-bounce-in">
+          <div className="absolute bottom-20 left-0 bg-black/90 text-white px-4 py-2 rounded-lg text-sm backdrop-blur-sm animate-bounce-in">
             <p className="whitespace-nowrap">🎵 Cliquez pour activer la musique</p>
           </div>
         )}

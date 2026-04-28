@@ -6,6 +6,13 @@ export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Désactiver sur mobile (perf) et si l'utilisateur préfère moins d'animations
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isMobile || reduceMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -27,8 +34,7 @@ export default function ParticleBackground() {
 
     const colors = ['#ff0080', '#00f5ff', '#39ff14', '#ffff00', '#ff00ff'];
 
-    // Créer les particules
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 40; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -40,30 +46,28 @@ export default function ParticleBackground() {
       });
     }
 
+    let rafId = 0;
+
     function animate() {
       if (!ctx || !canvas) return;
-      
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((particle, index) => {
-        // Mouvement
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        // Rebonds
         if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
 
-        // Dessiner la particule
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = `${particle.color}${Math.floor(particle.opacity * 255).toString(16).padStart(2, '0')}`;
         ctx.fill();
 
-        // Connexions entre particules proches
         particles.slice(index + 1).forEach(otherParticle => {
           const distance = Math.sqrt(
-            Math.pow(particle.x - otherParticle.x, 2) + 
+            Math.pow(particle.x - otherParticle.x, 2) +
             Math.pow(particle.y - otherParticle.y, 2)
           );
 
@@ -78,7 +82,7 @@ export default function ParticleBackground() {
         });
       });
 
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     }
 
     animate();
@@ -92,14 +96,16 @@ export default function ParticleBackground() {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
   return (
-    <canvas 
+    <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
+      className="fixed inset-0 pointer-events-none z-0 hidden md:block motion-reduce:hidden"
       style={{ background: 'transparent' }}
+      aria-hidden="true"
     />
   );
 }

@@ -28,7 +28,7 @@ export default function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-8 right-8 gaming-card p-4 hover:scale-110 transition-all animate-cyber-glow z-50"
+      className="fixed bottom-24 md:bottom-28 right-4 md:right-6 gaming-card p-3 md:p-4 hover:scale-110 transition-all animate-cyber-glow z-40"
       aria-label="Retour en haut"
     >
       <ChevronUp size={24} className="text-secondary animate-neon-pulse" />

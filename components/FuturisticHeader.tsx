@@ -60,38 +60,6 @@ export default function FuturisticHeader() {
       {/* SEO h1 caché - le titre est déjà dans l'image */}
       <h1 className="sr-only">Embrouille JDS - Team JDS, groupe de jeux de société à Pau</h1>
 
-      {/* Main content - positionné en bas pour ne pas masquer la photo de l'équipe */}
-      <div className="relative z-10 w-full px-4 pb-10 md:pb-16">
-        <div className="max-w-5xl mx-auto">
-          {/* Gaming stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8 animate-slide-up"
-               style={{animationDelay: '0.9s'}}>
-            {[
-              { label: 'JOUEURS', value: '4', color: 'text-primary' },
-              { label: 'JEUX', value: '12+', color: 'text-secondary' },
-              { label: 'PARTIES', value: '100+', color: 'text-tertiary' },
-              { label: 'LEVEL', value: 'PRO', color: 'text-accent' },
-            ].map((stat) => (
-              <div key={stat.label} className="glass-card p-3 md:p-4 text-center backdrop-blur-md">
-                <div className={`text-2xl md:text-3xl font-bold ${stat.color} mb-1`}>
-                  {stat.value}
-                </div>
-                <div className="text-[10px] md:text-xs text-light/70 font-mono tracking-wider">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Call to action */}
-          <div className="text-center animate-slide-up" style={{animationDelay: '1.1s'}}>
-            <button className="gaming-card px-8 py-4 font-bold text-lg hover:scale-105 transition-all duration-300 backdrop-blur-md">
-              <span className="hologram-text">ENTER GAME</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Lottie animation - badge décoratif coin haut droit (desktop only) */}
       <div className="hidden lg:block absolute top-24 right-8 z-10 animate-slide-up" style={{animationDelay: '0.7s'}}>
         <div className="relative w-32 h-32 xl:w-40 xl:h-40">
