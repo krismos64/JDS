@@ -1,57 +1,76 @@
 # 🎲 Embrouille JDS - Gaming Experience 2.0
 
-Site web futuriste ultra-moderne pour le club de jeux de société "Embrouille JDS", repensé avec une approche mobile-first et une identité visuelle gaming.
+Site web futuriste mobile-first pour le club de jeux de société "Embrouille JDS", repensé avec une approche carrousel-tab-bar et une identité visuelle gaming/cyberpunk.
 
-🔗 **Site en production** : [https://embrouille-jds.netlify.app](https://embrouille-jds.netlify.app)  
-👨‍💻 **Développeur** : [Christophe - Freelance Full Stack](https://christophe-dev-freelance.fr)  
-📦 **Repository** : [GitHub - krismos64/JDS](https://github.com/krismos64/JDS)  
+🔗 **Site en production** : [https://embrouille-jds.netlify.app](https://embrouille-jds.netlify.app)
+👨‍💻 **Développeur** : [Christophe - Freelance Full Stack](https://christophe-dev-freelance.fr)
+📦 **Repository** : [GitHub - krismos64/JDS](https://github.com/krismos64/JDS)
 🚀 **Hébergement** : Netlify (déploiement continu depuis GitHub)
 
 ## 🚀 Technologies
 
 ### Frontend
-- **Next.js 15.5.0** - Framework React avec App Router
-- **React 19** - Dernière version stable
-- **TypeScript 5** - Typage statique et robustesse
-- **Tailwind CSS 3.4** - Framework CSS moderne
-- **Lottie React** - Animations vectorielles fluides
+- **Next.js 15.5.15** - App Router (patch sécurité CVE-2025-55182)
+- **React 19.1** - Dernière version stable
+- **TypeScript 5** - Typage statique strict
+- **Tailwind CSS 4** - Framework CSS moderne (avec `@tailwindcss/postcss`)
+- **Lottie React** - Animations vectorielles (Lottie chargé en dynamic import pour éviter SSR)
+- **Framer Motion** - Animations React déclaratives (admin)
 - **GSAP** - Animations JavaScript avancées
-- **Framer Motion** - Animations React déclaratives
+- **Lucide React** - Icônes
+
+### Authentification & Sécurité
+- **bcryptjs** - Hash des mots de passe admin
+- **jose** - JWT signés en cookies httpOnly
+- **Middleware Next.js** - Protection des routes `/admin/*` et `/api/admin/*`
 
 ### Optimisation
-- **PWA Ready** - Installation mobile native
-- **SEO Maximal** - Score Lighthouse 98+
-- **Performance** - First Load ~102 kB
-- **Responsive** - Mobile-first design
-- **Accessibility** - WCAG 2.1 AA compliant
-- **SSR Compatible** - Rendu serveur optimisé
+- **PWA Ready** - `next-pwa` configuré
+- **SEO Maximal** - Métadonnées + sitemap dynamique
+- **Performance** - First Load 122 kB
+- **Mobile-first** - Tab bar fixe, particules désactivées sur mobile
+- **Accessibility** - WCAG 2.1 AA, support `prefers-reduced-motion`
+- **SSR Compatible** - Vérifications `typeof window !== 'undefined'`
 
 ## 🎮 Fonctionnalités Gaming
 
 ### 🎨 **Design System Futuriste**
 - **Palette néon** : Cyan, Magenta, Vert électrique, Jaune néon
-- **Effets visuels** : Hologrammes, glitch, cyber-glow
-- **Animations avancées** : Particules interactives, scanning lines
-- **Glass morphism** : Cartes translucides avec blur
+- **Effets visuels** : Hologrammes, glitch, cyber-glow, scan lines
+- **Glass morphism** : Cartes translucides avec backdrop-blur
 - **Typographie gaming** : Police mono, textes holographiques
 
-### 📱 **Mobile-First Experience** 
-- **Navigation immersive** : HUD gaming, menu burger futuriste
-- **Sections full-screen** : Chaque section = écran de jeu
-- **Micro-interactions** : Hover effects, animations au scroll
-- **Responsive parfait** : Adapté tablettes/desktop
+### 📱 **Mobile-First Experience**
+- **BottomTabBar fixe** : 5 onglets (Next / Team / Score / Stories / Admin)
+- **Détection automatique** de la section active au scroll
+- **Carrousel snap horizontal** pour la section Team
+- **Cartes verticales** au lieu de tableau scrollable pour le Leaderboard
+- **Modal photo plein écran** sur les Stories
+- **Safe area** support pour iPhone X+
 
 ### 🎬 **Animations & Effets**
-- **Particules dynamiques** : Canvas animé en arrière-plan
-- **Lottie animations** : Fight, Coca-Cola, Podium intégrées
-- **CSS animations** : Neon pulse, cyber glow, hologram
-- **Transitions fluides** : Entre sections et composants
+- **Particules canvas** dynamiques (desktop uniquement, désactivées si `prefers-reduced-motion`)
+- **Lottie animations** : Fight, Coca-Cola, Podium
+- **CSS animations** : Neon pulse, cyber glow, hologram, glitch
+- **Countdown live** : la prochaine partie se met à jour chaque seconde (JJ:HH:MM:SS)
 
 ### ⚡ **Performance & SEO**
-- **108 kB First Load** : Ultra-optimisé
-- **Static generation** : Toutes pages pré-générées
-- **SEO gaming** : Métadonnées spécialisées gaming
-- **PWA ready** : Installable comme app mobile
+- **122 kB First Load** sur la page d'accueil
+- **Static generation** : 10 pages statiques pré-générées
+- **API routes dynamiques** : 21 routes server-side
+- **PWA installable** mobile
+
+## 🗂️ Sections de la page principale
+
+L'ordre est pensé pour que les membres trouvent l'info la plus utile en premier :
+
+1. **Hero** - Bannière "Team JDS" responsive (paysage desktop / portrait mobile via `<picture>`)
+2. **Next Game** - Date de la prochaine soirée + countdown live JJ:HH:MM:SS
+3. **Team** - Carrousel des 4 joueurs (mobile) / grille (desktop) + photo de groupe
+4. **Leaderboard** - Cartes mobile-first + classement général en podium
+5. **Games** - Ludothèque filtrable (Tous / Champions / Records)
+6. **Stories** - Souvenirs des soirées avec photos et vidéos YouTube intégrées
+7. **Video** - Lecteur unique avec playlist YouTube sélectionnable
 
 ## 🛠️ Installation
 
@@ -75,22 +94,19 @@ npm install
 
 # Lancer en développement
 npm run dev
-# Note: Le serveur démarre sur le port 3001 si le 3000 est occupé
+# Note: démarre sur le port 3001 si 3000 est occupé
 
 # Build pour production
 npm run build
 npm run start
 
-# Vérifier le build (recommandé avant de push)
-npm run build
-
-# Linter et formatage
+# Linter
 npm run lint
 ```
 
 ### Variables d'environnement
 
-Créer un fichier `.env.local` à la racine (voir `.env.example` pour le template) :
+Créer un fichier `.env.local` à la racine :
 
 ```env
 # Configuration locale
@@ -108,229 +124,213 @@ NEXT_PUBLIC_SENTRY_DSN=
 
 ```
 JDS/
-├── app/                     # Next.js App Router
-│   ├── layout.tsx          # Layout principal + SEO
-│   ├── page.tsx            # Page d'accueil
-│   ├── sitemap.ts          # Sitemap dynamique
-│   ├── admin/              # Interface admin (protégée)
-│   │   ├── layout.tsx      # Layout admin futuriste
-│   │   ├── members/        # Gestion des membres
-│   │   ├── games/          # Gestion des jeux
-│   │   ├── scores/         # Gestion des scores
-│   │   ├── anecdotes/      # Gestion des anecdotes
-│   │   └── olivia/         # Citations d'Olivia
-│   └── api/                # Routes API
-│       ├── admin/          # API admin CRUD
-│       └── auth/           # Authentification
-├── components/             # Composants React
-│   ├── ui/                 # Composants UI de base
-│   ├── sections/           # Sections de la page
-│   ├── admin/              # Composants admin
-│   └── shared/             # Composants partagés
-├── lib/                    # Logique métier
-│   ├── types.ts           # Types TypeScript
-│   ├── staticData.ts      # Données statiques
-│   ├── dataLoader.ts      # Chargement des données
-│   ├── auth.ts            # Logique d'auth
-│   └── utils.ts           # Fonctions utilitaires
-├── data/                   # Données JSON
-│   ├── members.json       # Membres du club
-│   ├── games.json         # Liste des jeux
-│   ├── scores.json        # Historique scores
-│   └── anecdotes.json     # Anecdotes
-├── public/                 # Assets statiques
-│   ├── img/               # Images optimisées
-│   ├── audio/             # Fichiers audio
-│   ├── animations/        # Animations Lottie
-│   └── favicon/           # Favicons multi-plateformes
-├── middleware.ts          # Middleware Next.js (auth)
-└── tailwind.config.ts     # Config Tailwind CSS
+├── app/                          # Next.js App Router
+│   ├── layout.tsx                # Layout racine + SEO
+│   ├── page.tsx                  # Page d'accueil (orchestre les sections)
+│   ├── sitemap.ts                # Sitemap dynamique
+│   ├── globals.css               # Styles globaux + utilitaires (.scrollbar-hide, safe-area)
+│   ├── admin/                    # Interface admin (protégée)
+│   │   ├── layout.tsx            # Sidebar + nav mobile
+│   │   ├── page.tsx              # Dashboard
+│   │   ├── login/                # Login JWT
+│   │   ├── next-game/            # Édition prochaine soirée
+│   │   ├── members/              # CRUD membres
+│   │   ├── games/                # CRUD jeux
+│   │   ├── scores/               # CRUD parties
+│   │   ├── anecdotes/            # CRUD anecdotes
+│   │   └── olivia/               # Citations Olivia
+│   └── api/                      # Routes API
+│       ├── admin/                # API admin protégées (CRUD)
+│       │   ├── next-game/        # GET/PUT prochaine partie
+│       │   ├── members/, games/, scores/, anecdotes/, olivia-quotes/
+│       │   └── stats/            # Statistiques dashboard
+│       ├── auth/                 # login/logout/session JWT
+│       ├── next-game/            # API publique (lue par le site)
+│       └── members/, games/, scores/, anecdotes/, olivia-quotes/
+├── components/                   # Composants React
+│   ├── FuturisticHeader.tsx      # Hero avec bannière responsive
+│   ├── BottomTabBar.tsx          # Nav fixe mobile-first 5 onglets
+│   ├── NextGameSection.tsx       # Countdown live (JJ:HH:MM:SS)
+│   ├── TeamSection.tsx           # Carrousel + grille membres
+│   ├── LeaderboardSection.tsx    # Cartes mobile / tableau desktop
+│   ├── GamesSection.tsx          # Ludothèque avec filtres
+│   ├── StoriesSection.tsx        # Souvenirs immersifs
+│   ├── VideoSection.tsx          # Lecteur YouTube + playlist
+│   ├── ParticleBackground.tsx    # Canvas (désactivé mobile + reduced-motion)
+│   ├── AudioPlayerAdvanced.tsx   # Lecteur audio bottom-left
+│   ├── BackToTop.tsx             # Bouton retour haut
+│   ├── PlayerModal.tsx           # Modal profil joueur
+│   ├── PodiumAnimation.tsx       # Lottie podium
+│   ├── CocaAnimation.tsx         # Lottie Coca-Cola
+│   └── admin/                    # Composants admin (FuturisticCard, Button, Background)
+├── lib/                          # Logique métier
+│   ├── types.ts                  # Types TypeScript (Member, Game, Score, Anecdote, NextGame)
+│   ├── staticData.ts             # Données statiques côté client
+│   ├── dataLoader.ts             # Lecture/écriture JSON côté server
+│   ├── auth.ts                   # JWT + bcrypt
+│   └── utils.ts                  # Helpers
+├── data/                         # Données JSON éditables via admin
+│   ├── members.json              # Membres du club
+│   ├── games.json                # Liste des jeux
+│   ├── scores.json               # Historique scores
+│   ├── anecdotes.json            # Anecdotes + citations Olivia
+│   └── nextGame.json             # Prochaine soirée (date, displayDate, highlight, isActive)
+├── public/                       # Assets statiques
+│   ├── img/                      # Images (bannière Team JDS desktop+mobile, photos)
+│   ├── audio/                    # Embrouille-JDS.mp3
+│   ├── animations/               # Lottie JSON (fight, coca, podium)
+│   └── favicon/                  # Favicons multi-plateformes
+├── middleware.ts                 # Protection routes /admin/* et /api/admin/*
+├── netlify.toml                  # Configuration Netlify
+└── tailwind.config.ts            # Config Tailwind CSS
 ```
+
+## 🔐 Zone Admin
+
+Accès : `/admin` (authentification requise via `/admin/login`)
+
+### Fonctionnalités
+
+| Section | Route | Description |
+|---------|-------|-------------|
+| 📊 Dashboard | `/admin` | Vue d'ensemble + stats temps réel |
+| 📅 Next Game | `/admin/next-game` | Date, texte affiché, highlight, toggle visibilité |
+| 👥 Membres | `/admin/members` | CRUD profils des 4 joueurs |
+| 🎲 Jeux | `/admin/games` | CRUD catalogue de jeux |
+| 🏆 Scores | `/admin/scores` | CRUD historique des parties |
+| 📖 Anecdotes | `/admin/anecdotes` | CRUD souvenirs avec photos/vidéos |
+| 💬 Olivia | `/admin/olivia` | CRUD citations cultes |
+
+### Section Next Game éditable
+
+L'admin peut modifier en temps réel :
+- 📅 Date de la prochaine partie (alimente le countdown live)
+- ✨ Texte affiché en gros (ex: "MAI 2026")
+- 💬 Phrase d'accroche (ex: "OLIVIA SERA PRÉSENTE!")
+- 👁️ Toggle visibilité (masque la section sur le site public)
 
 ## 🎨 Personnalisation
 
 ### Theme Gaming (tailwind.config.ts)
 
 #### Couleurs principales
-- `neon-cyan`: #00ffff - Cyan électrique
-- `neon-magenta`: #ff00ff - Magenta vif
-- `neon-green`: #39ff14 - Vert gaming
-- `neon-yellow`: #ffff00 - Jaune néon
-- `dark-bg`: #0a0a0a - Fond sombre
-- `glass`: rgba(255,255,255,0.1) - Effet verre
+- `neon-cyan`: #00ffff
+- `neon-magenta`: #ff00ff
+- `neon-green`: #39ff14
+- `neon-yellow`: #ffff00
+- `dark-bg`: #0a0a0a
+- `glass`: rgba(255,255,255,0.1)
 
 #### Effets visuels
 - **Neon Glow** : Box-shadow personnalisés
 - **Glass Morphism** : Backdrop-filter blur
-- **Gradient Animations** : @keyframes custom
-- **Hover States** : Transitions fluides
-
-### Gestion des données
-
-#### Fichiers JSON (dossier `/data`)
-- `members.json` - Profils des joueurs
-- `games.json` - Catalogue de jeux
-- `scores.json` - Historique des parties
-- `anecdotes.json` - Moments mémorables
-
-#### Interface Admin
-- Accès : `/admin` (authentification requise)
-- CRUD complet sur toutes les données
-- Interface futuriste avec animations
-- Export/Import JSON
+- **Hologram** : Gradient multi-couleurs animé
+- **Cyber Glow** : Lueur pulsante autour des cartes
 
 ## 🚀 Déploiement
 
-### Netlify (Actuellement utilisé) ✅
+### Netlify (Production) ✅
 
 #### Configuration automatique
-Le projet est configuré pour un déploiement automatique sur Netlify :
-- **Déploiement continu** : Chaque push sur `main` déclenche un build
-- **Preview deployments** : Chaque PR génère un environnement de preview
-- **Configuration** : `netlify.toml` présent à la racine
-- **Plugin Next.js** : `@netlify/plugin-nextjs` installé et configuré
+- **Déploiement continu** : push sur `main` → build automatique
+- **Preview deployments** : chaque PR génère un environnement
+- **Plugin** : `@netlify/plugin-nextjs` 5.12+
+- **Configuration** : `netlify.toml`
 
-#### Variables d'environnement requises sur Netlify
+#### Variables d'environnement Netlify
 ```env
 JWT_SECRET=your-secret-key-here
 NEXT_PUBLIC_SITE_URL=https://embrouille-jds.netlify.app
 ```
 
 #### Build settings
-- **Base directory** : Vide (racine du projet)
 - **Build command** : `npm run build`
 - **Publish directory** : `.next`
-- **Node version** : 20 (défini dans `.nvmrc`)
+- **Node version** : 20
 
 #### Résolution des problèmes courants
 
-##### Erreur "window is not defined"
-✅ **Résolu** : Utilisation de vérifications `typeof window !== 'undefined'` dans les composants
+##### "window is not defined" (SSR)
+✅ **Résolu** : `typeof window !== 'undefined'` + `useEffect` pour les APIs navigateur
 
-##### Erreur de plugin
-✅ **Résolu** : Le plugin `@netlify/plugin-nextjs` ne prend pas de paramètres d'input
-
-### Vercel (Alternative)
+##### Cache `.next` corrompu après refonte
+Symptôme : `Cannot find module './XXX.js'` en dev.
+Solution :
 ```bash
-# Installation CLI Vercel
-npm install -g vercel
-
-# Déploiement
-vercel --prod
+rm -rf .next
+npm run dev
 ```
 
-### Docker (Alternative)
-```dockerfile
-# Dockerfile disponible
-docker build -t embrouille-jds .
-docker run -p 3000:3000 embrouille-jds
-```
-
-### Serveur Node.js (Alternative)
+##### Build bloqué par Netlify (CVE)
+Si Netlify bloque le déploiement avec un message CVE Next.js, mettre à jour :
 ```bash
-# Build de production
-npm run build
-
-# Démarrage avec PM2
-pm2 start npm --name "jds" -- start
+npm install next@latest  # ou next@15.5.15 pour rester sur Next 15
 ```
 
-## 📈 Performances & SEO
+## 📈 Performances
 
-### Métriques Lighthouse
-- **Performance** : 98/100
-- **Accessibility** : 100/100
-- **Best Practices** : 100/100
-- **SEO** : 100/100
-- **PWA** : Installable
-
-### Build Metrics (Production)
-- **Total Pages** : 28 (10 statiques, 18 API routes)
+### Build Metrics
+- **Total Pages** : 31 (10 statiques, 21 API routes)
 - **First Load JS** : 102 kB (partagé)
+- **Page d'accueil** : 122 kB
 - **Largest Route** : 151 kB (admin dashboard)
-- **Build Time** : ~10 secondes
-- **Middleware Size** : 40.3 kB
-
-### Core Web Vitals
-- **LCP** : < 1.2s (Largest Contentful Paint)
-- **FID** : < 50ms (First Input Delay)
-- **CLS** : < 0.05 (Cumulative Layout Shift)
-- **FCP** : < 0.8s (First Contentful Paint)
-- **TTI** : < 2s (Time to Interactive)
+- **Build Time** : ~2 secondes
 
 ### Optimisations appliquées
-- ✅ Images WebP avec srcset responsive
-- ✅ Lazy loading des composants lourds
+- ✅ Particules désactivées sur mobile + `prefers-reduced-motion`
+- ✅ Images en `loading="lazy"` (sauf hero `fetchPriority="high"`)
+- ✅ `<picture>` responsive desktop/mobile sur la bannière hero
 - ✅ Code splitting automatique
-- ✅ Prefetch des routes critiques
-- ✅ Service Worker pour cache offline
-- ✅ Compression Gzip/Brotli
+- ✅ Compression Gzip/Brotli (Netlify)
 - ✅ CDN pour les assets statiques
 
-## 🔄 Roadmap 2025
+## 🔄 Historique de la refonte
 
-### ✅ Phase 1 - Complété
-- [x] Migration Next.js 15 avec App Router
-- [x] Interface admin complète
-- [x] Design system gaming futuriste
-- [x] PWA mobile-first
-- [x] SEO optimisé (100/100)
-- [x] Déploiement Netlify avec CI/CD
-- [x] Correction des erreurs SSR
-- [x] Configuration build optimisée
+### Big Bang Mobile-First (avril 2026)
+- 🎯 BottomTabBar unique remplace MobileMenu + SwipeIndicator + GamingNav
+- 📱 Carrousel snap pour la section Team
+- 🏆 Leaderboard repensé en cartes verticales mobile
+- 🎲 Section Games avec filtres (Tous/Champions/Records)
+- ⚡ Countdown live JJ:HH:MM:SS sur Next Game
+- 🎬 Video en playlist unifiée avec thumbnails
+- 🗑️ 4 composants redondants supprimés
 
-### 🚧 Phase 2 - En cours
-- [ ] Backend API REST/GraphQL
-- [ ] Base de données PostgreSQL/Prisma
-- [ ] Authentification OAuth (Google/Discord)
-- [ ] Système de notifications push
-- [ ] Mode sombre/clair dynamique
-
-### 📅 Phase 3 - Planifié
-- [ ] Application mobile React Native
-- [ ] Système de tournois en ligne
-- [ ] Chat temps réel (WebSocket)
-- [ ] Statistiques avancées par joueur
-- [ ] Intégration BoardGameGeek API
-- [ ] Export PDF des résultats
-
-### 🎯 Phase 4 - Vision long terme
-- [ ] IA pour suggestions de jeux
-- [ ] Streaming des parties
-- [ ] Marketplace d'échange de jeux
-- [ ] Events management complet
+### Phases précédentes
+- ✅ Migration Next.js 15 avec App Router
+- ✅ Interface admin complète (CRUD sur toutes les données)
+- ✅ Section Next Game éditable avec API REST
+- ✅ Hero responsive avec bannières "Team JDS" desktop/mobile
+- ✅ Authentification JWT + middleware
+- ✅ Déploiement Netlify avec CI/CD
+- ✅ Patch sécurité CVE-2025-55182 (Next 15.5.0 → 15.5.15)
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! 
-
-### Workflow de développement
-
+### Workflow
 1. Fork le projet
 2. Créer une branche (`git checkout -b feature/AmazingFeature`)
 3. Développer et tester localement (`npm run dev`)
 4. Vérifier le build (`npm run build`)
-5. Commit les changements (`git commit -m 'Add AmazingFeature'`)
-6. Push sur la branche (`git push origin feature/AmazingFeature`)
+5. Commit (`git commit -m 'Add AmazingFeature'`)
+6. Push (`git push origin feature/AmazingFeature`)
 7. Ouvrir une Pull Request
 
-### Checklist avant de push
-
+### Checklist avant push
 - [ ] Le build passe sans erreur (`npm run build`)
 - [ ] Pas d'erreur "window is not defined" en SSR
-- [ ] Les nouveaux composants utilisent `'use client'` si nécessaire
-- [ ] Le fichier `.gitignore` est respecté
-- [ ] Les variables d'environnement sensibles ne sont pas commitées
+- [ ] Les composants navigateur utilisent `'use client'`
+- [ ] Pas de variables d'environnement dans le code committé
+- [ ] Cache `.next` purgé si gros changements de structure
 
 ## 📝 Licence
 
-Projet privé - Embrouille JDS © 2025  
+Projet privé - Embrouille JDS © 2026
 Tous droits réservés
 
 ## 👥 Équipe
 
-**Développement** : [Christophe](https://christophe-dev-freelance.fr) - Full Stack MERN/TypeScript  
-**Design** : Concept gaming futuriste avec effets néon  
+**Développement** : [Christophe](https://christophe-dev-freelance.fr) - Full Stack Next.js / TypeScript
+**Design** : Concept gaming cyberpunk avec effets néon
 **Client** : Club Embrouille JDS
 
 ## 📞 Contact
