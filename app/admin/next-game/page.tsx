@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Save, Sparkles, Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react';
 import FuturisticCard from '@/components/admin/FuturisticCard';
 import FuturisticButton from '@/components/admin/FuturisticButton';
+import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import { NextGame } from '@/lib/types';
 
 export default function NextGameAdmin() {
@@ -88,53 +89,28 @@ export default function NextGameAdmin() {
   }
 
   return (
-    <div className="space-y-6 sm:space-y-8">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <FuturisticCard glowColor="from-cyan-400/30 to-blue-500/30">
-          <div className="p-4 sm:p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <motion.div
-                  animate={{ rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/50"
-                >
-                  <Calendar className="h-6 w-6 text-white" />
-                </motion.div>
-                <div>
-                  <h1 className="relative">
-                    <span className="absolute inset-0 text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent blur-sm animate-pulse">
-                      NEXT GAME
-                    </span>
-                    <span className="relative text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent uppercase tracking-wider">
-                      NEXT GAME
-                    </span>
-                  </h1>
-                  <p className="text-cyan-300 text-sm font-medium">Prochaine soirée JDS</p>
-                </div>
+    <div className="space-y-6">
+      <AdminPageHeader
+        title="Next Game"
+        subtitle="Prochaine soirée JDS"
+        icon={Calendar}
+        iconGradient="from-cyan-500 to-blue-600"
+        action={
+          daysLeft !== null && data.isActive ? (
+            <div className="text-center sm:text-right">
+              <div className="text-xs uppercase text-slate-300 font-medium tracking-wider">
+                {daysLeft > 0 ? 'Dans' : daysLeft === 0 ? "Aujourd'hui !" : 'Passée depuis'}
               </div>
-
-              {daysLeft !== null && data.isActive && (
-                <div className="text-center sm:text-right">
-                  <div className="text-xs uppercase text-cyan-300 font-bold tracking-wider">
-                    {daysLeft > 0 ? 'Dans' : daysLeft === 0 ? 'Aujourd\'hui !' : 'Passée depuis'}
-                  </div>
-                  {daysLeft !== 0 && (
-                    <div className="text-3xl sm:text-4xl font-black text-white">
-                      {Math.abs(daysLeft)} <span className="text-base text-cyan-300">jour{Math.abs(daysLeft) > 1 ? 's' : ''}</span>
-                    </div>
-                  )}
+              {daysLeft !== 0 && (
+                <div className="text-2xl sm:text-3xl font-bold text-white">
+                  {Math.abs(daysLeft)}{' '}
+                  <span className="text-sm text-slate-300">jour{Math.abs(daysLeft) > 1 ? 's' : ''}</span>
                 </div>
               )}
             </div>
-          </div>
-        </FuturisticCard>
-      </motion.div>
+          ) : undefined
+        }
+      />
 
       {/* Feedback */}
       {feedback && (
@@ -156,37 +132,34 @@ export default function NextGameAdmin() {
         </motion.div>
       )}
 
-      {/* Formulaire */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.1, duration: 0.3 }}
       >
-        <FuturisticCard glowColor="from-purple-400/30 to-pink-500/30">
+        <FuturisticCard>
           <div className="p-4 sm:p-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Date ISO */}
-              <div className="space-y-2">
-                <label className="block text-cyan-300 text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-1.5">
+                <label className="block text-slate-300 text-sm font-medium flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-cyan-400" />
                   Date de la prochaine partie
                 </label>
                 <input
                   type="date"
                   value={data.date}
                   onChange={(e) => setData({ ...data, date: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900/50 border-2 border-cyan-500/30 rounded-lg text-white focus:outline-none focus:border-cyan-400 focus:bg-gray-900/70 transition-all"
+                  className="w-full px-4 py-2.5 bg-slate-900/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400 transition-colors"
                   required
                 />
-                <p className="text-xs text-gray-400">
-                  Utilisée pour calculer le compte à rebours (jours restants)
+                <p className="text-xs text-slate-400">
+                  Utilisée pour calculer le compte à rebours
                 </p>
               </div>
 
-              {/* Affichage texte */}
-              <div className="space-y-2">
-                <label className="block text-purple-300 text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                  <Sparkles className="h-4 w-4" />
+              <div className="space-y-1.5">
+                <label className="block text-slate-300 text-sm font-medium flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-purple-400" />
                   Texte affiché en gros
                 </label>
                 <input
@@ -194,82 +167,76 @@ export default function NextGameAdmin() {
                   value={data.displayDate}
                   onChange={(e) => setData({ ...data, displayDate: e.target.value })}
                   placeholder="ex: MAI 2026"
-                  className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:bg-gray-900/70 transition-all uppercase font-bold tracking-wider"
+                  className="w-full px-4 py-2.5 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-purple-400 focus:border-purple-400 transition-colors uppercase font-semibold tracking-wider"
                   required
                 />
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-slate-300">
                   Affiché en énorme sur le site (ex: "MAI 2026", "FÉV 2025")
                 </p>
               </div>
 
-              {/* Highlight */}
-              <div className="space-y-2">
-                <label className="block text-pink-300 text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                  <Sparkles className="h-4 w-4" />
-                  Phrase d'accroche
+              <div className="space-y-1.5">
+                <label className="block text-slate-300 text-sm font-medium flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-pink-400" />
+                  Phrase d&apos;accroche
                 </label>
                 <input
                   type="text"
                   value={data.highlight}
                   onChange={(e) => setData({ ...data, highlight: e.target.value })}
-                  placeholder="ex: OLIVIA SERA PRÉSENTE!"
-                  className="w-full px-4 py-3 bg-gray-900/50 border-2 border-pink-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-pink-400 focus:bg-gray-900/70 transition-all"
+                  placeholder="ex: OLIVIA SERA PRÉSENTE !"
+                  className="w-full px-4 py-2.5 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-pink-400 focus:border-pink-400 transition-colors"
                   maxLength={80}
                 />
-                <p className="text-xs text-gray-400">
-                  Texte en dessous de la date ({data.highlight.length}/80) — laisser vide pour masquer
+                <p className="text-xs text-slate-400">
+                  ({data.highlight.length}/80) — laisser vide pour masquer
                 </p>
               </div>
 
-              {/* Toggle actif */}
-              <div className="space-y-2">
-                <label className="block text-yellow-300 text-sm font-bold uppercase tracking-wider">
+              <div className="space-y-1.5">
+                <label className="block text-slate-300 text-sm font-medium">
                   Visibilité
                 </label>
                 <button
                   type="button"
                   onClick={() => setData({ ...data, isActive: !data.isActive })}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 w-full transition-all ${
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border w-full transition-colors ${
                     data.isActive
-                      ? 'bg-green-500/10 border-green-500/30 text-green-300'
-                      : 'bg-gray-500/10 border-gray-500/30 text-gray-400'
+                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                      : 'bg-slate-700/30 border-slate-700 text-slate-300'
                   }`}
                 >
                   {data.isActive ? <Eye className="h-5 w-5" /> : <EyeOff className="h-5 w-5" />}
-                  <span className="font-bold uppercase tracking-wider text-sm">
+                  <span className="font-medium text-sm">
                     {data.isActive ? 'Section visible sur le site' : 'Section masquée'}
                   </span>
                 </button>
               </div>
 
-              {/* Bouton */}
-              <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                <FuturisticButton
-                  type="submit"
-                  variant="success"
-                  disabled={saving}
-                  className="w-full font-bold uppercase tracking-wider flex items-center justify-center gap-2"
-                >
-                  <Save className="h-5 w-5" />
-                  {saving ? 'Sauvegarde...' : 'Sauvegarder'}
-                </FuturisticButton>
-              </motion.div>
+              <FuturisticButton
+                type="submit"
+                variant="success"
+                disabled={saving}
+                icon={Save}
+                className="w-full"
+              >
+                {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+              </FuturisticButton>
             </form>
           </div>
         </FuturisticCard>
       </motion.div>
 
-      {/* Aperçu */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        transition={{ delay: 0.2, duration: 0.3 }}
       >
-        <FuturisticCard glowColor="from-emerald-400/30 to-teal-500/30">
+        <FuturisticCard>
           <div className="p-4 sm:p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Eye className="h-5 w-5 text-emerald-400" />
-              <h3 className="text-emerald-300 font-bold uppercase tracking-wider text-sm">Aperçu sur le site</h3>
+              <Eye className="h-4 w-4 text-emerald-400" />
+              <h3 className="text-slate-300 font-medium text-sm">Aperçu sur le site</h3>
             </div>
 
             {data.isActive ? (
@@ -289,8 +256,8 @@ export default function NextGameAdmin() {
                 )}
               </div>
             ) : (
-              <div className="text-center py-8 text-gray-500 italic">
-                Section masquée — n'apparaîtra pas sur le site public
+              <div className="text-center py-8 text-slate-400 italic text-sm">
+                Section masquée — n&apos;apparaîtra pas sur le site public
               </div>
             )}
           </div>

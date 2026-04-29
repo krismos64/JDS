@@ -243,7 +243,7 @@ export default function LoginPage() {
                     ADMIN ZONE
                   </h1>
                 </div>
-                <p className="mt-4 text-sm text-gray-400 flex items-center justify-center gap-2">
+                <p className="mt-4 text-sm text-slate-300 flex items-center justify-center gap-2">
                   <Shield className="w-4 h-4" />
                   Accès Restreint
                   <Zap className="w-4 h-4 text-yellow-400 animate-pulse" />
@@ -266,7 +266,7 @@ export default function LoginPage() {
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                       <User className={`w-5 h-5 transition-colors duration-300 ${
-                        focusedField === 'username' ? 'text-purple-400' : 'text-gray-500'
+                        focusedField === 'username' ? 'text-purple-400' : 'text-slate-400'
                       }`} />
                     </div>
                     <input
@@ -275,11 +275,11 @@ export default function LoginPage() {
                       required
                       className={`
                         w-full pl-12 pr-4 py-4 
-                        bg-gray-900/50 backdrop-blur-sm
+                        bg-slate-900/50 backdrop-blur-sm
                         border-2 ${focusedField === 'username' ? 'border-purple-500' : 'border-gray-700'}
                         rounded-lg
-                        text-white placeholder-gray-500
-                        focus:outline-none focus:border-purple-400 focus:bg-gray-900/70
+                        text-white placeholder-slate-400
+                        focus:outline-none focus:border-purple-400 focus:bg-slate-900/70
                         transition-all duration-300
                         ${focusedField === 'username' ? 'transform scale-[1.02]' : ''}
                       `}
@@ -304,7 +304,7 @@ export default function LoginPage() {
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                       <Lock className={`w-5 h-5 transition-colors duration-300 ${
-                        focusedField === 'password' ? 'text-pink-400' : 'text-gray-500'
+                        focusedField === 'password' ? 'text-pink-400' : 'text-slate-400'
                       }`} />
                     </div>
                     <input
@@ -313,11 +313,11 @@ export default function LoginPage() {
                       required
                       className={`
                         w-full pl-12 pr-12 py-4
-                        bg-gray-900/50 backdrop-blur-sm
+                        bg-slate-900/50 backdrop-blur-sm
                         border-2 ${focusedField === 'password' ? 'border-pink-500' : 'border-gray-700'}
                         rounded-lg
-                        text-white placeholder-gray-500
-                        focus:outline-none focus:border-pink-400 focus:bg-gray-900/70
+                        text-white placeholder-slate-400
+                        focus:outline-none focus:border-pink-400 focus:bg-slate-900/70
                         transition-all duration-300
                         ${focusedField === 'password' ? 'transform scale-[1.02]' : ''}
                       `}
@@ -334,9 +334,9 @@ export default function LoginPage() {
                       className="absolute inset-y-0 right-0 pr-4 flex items-center"
                     >
                       {showPassword ? (
-                        <EyeOff className="w-5 h-5 text-gray-500 hover:text-pink-400 transition-colors" />
+                        <EyeOff className="w-5 h-5 text-slate-400 hover:text-pink-400 transition-colors" />
                       ) : (
-                        <Eye className="w-5 h-5 text-gray-500 hover:text-pink-400 transition-colors" />
+                        <Eye className="w-5 h-5 text-slate-400 hover:text-pink-400 transition-colors" />
                       )}
                     </button>
                     {/* Label flottant */}
@@ -398,7 +398,7 @@ export default function LoginPage() {
               {/* Indice */}
               <div className="mt-8 p-4 bg-purple-900/20 border border-purple-500/30 rounded-lg backdrop-blur-sm">
                 <div className="text-center space-y-1">
-                  <p className="text-xs text-gray-400 flex items-center justify-center gap-2">
+                  <p className="text-xs text-slate-300 flex items-center justify-center gap-2">
                     <span className="text-yellow-400">💡</span>
                     Codes d\'accès par défaut
                     <span className="text-yellow-400">💡</span>
@@ -435,7 +435,7 @@ export default function LoginPage() {
         </div>
 
         {/* Score/Stats décoratifs */}
-        <div className="mt-8 flex gap-8 text-sm text-gray-500">
+        <div className="mt-8 flex gap-8 text-sm text-slate-400">
           <div className="flex items-center gap-2">
             <span className="text-yellow-400">⭐</span>
             <span>High Score: 999999</span>

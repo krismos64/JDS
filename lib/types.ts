@@ -23,14 +23,10 @@ export interface Game {
 }
 
 export interface Score {
+  id?: string | number;
   date: string;
   game: string;
-  scores: {
-    coco: number | string;
-    stacy: number | string;
-    fab: number | string;
-    chris: number | string;
-  };
+  scores: Record<string, number | string>;
 }
 
 export interface NextGame {

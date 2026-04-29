@@ -6,19 +6,20 @@ interface FuturisticCardProps {
   children: ReactNode;
   className?: string;
   onClick?: () => void;
+  glowColor?: string;
 }
 
 export default function FuturisticCard({
   children,
   className = '',
-  onClick
+  onClick,
 }: FuturisticCardProps) {
   return (
     <div
       className={`
-        bg-slate-800 
-        rounded-lg 
-        border border-slate-700
+        bg-slate-800/60
+        rounded-xl
+        border border-slate-700/60
         ${className}
       `}
       onClick={onClick}

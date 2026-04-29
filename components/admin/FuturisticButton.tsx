@@ -1,6 +1,7 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
+import { LucideProps } from 'lucide-react';
 
 interface FuturisticButtonProps {
   children: ReactNode;
@@ -10,6 +11,7 @@ interface FuturisticButtonProps {
   disabled?: boolean;
   type?: 'button' | 'submit';
   className?: string;
+  icon?: ComponentType<LucideProps>;
 }
 
 export default function FuturisticButton({
@@ -19,21 +21,22 @@ export default function FuturisticButton({
   size = 'md',
   disabled = false,
   type = 'button',
-  className = ''
+  className = '',
+  icon: Icon,
 }: FuturisticButtonProps) {
 
   const variants = {
     primary: 'bg-blue-600 hover:bg-blue-700',
-    secondary: 'bg-purple-600 hover:bg-purple-700',
+    secondary: 'bg-slate-700 hover:bg-slate-600',
     danger: 'bg-red-600 hover:bg-red-700',
-    success: 'bg-green-600 hover:bg-green-700',
-    warning: 'bg-yellow-600 hover:bg-yellow-700'
+    success: 'bg-emerald-600 hover:bg-emerald-700',
+    warning: 'bg-amber-600 hover:bg-amber-700',
   };
 
   const sizes = {
     sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2',
-    lg: 'px-6 py-3 text-lg'
+    md: 'px-4 py-2 text-sm',
+    lg: 'px-6 py-3 text-base',
   };
 
   return (
@@ -47,10 +50,13 @@ export default function FuturisticButton({
         text-white
         rounded-lg
         font-medium
+        inline-flex items-center justify-center gap-2
+        transition-colors
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         ${className}
       `}
     >
+      {Icon && <Icon className="h-4 w-4" />}
       {children}
     </button>
   );
